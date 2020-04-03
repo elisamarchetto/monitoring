@@ -39,3 +39,22 @@ install.packages("ggplot2")
 
 #use the function
 library(ggplot2)
+
+#to open the saved work
+setwd("C:/lab")
+load("R_code_spatial")
+ls() #list of objects i've done
+# I'll obtain "covid" "meuse"
+
+library(ggplot2)
+#data set to use
+data(mpg)
+head(mpg)
+#function we are going to use ggplot.. components: data, aes, geometry
+ggplot(mpg,aes(x=displ,y=hwy)) + geom_point()
+ggplot(mpg,aes(x=displ,y=hwy)) + geom_line()
+ggplot(mpg,aes(x=displ,y=hwy)) + geom_polygon()
+
+head(covid)
+ggplot(covid,aes(x=lon,y=lat, size=cases)) + geom_point() #lat and lon dipend on size
+
