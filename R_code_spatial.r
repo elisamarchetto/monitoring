@@ -73,6 +73,7 @@ points(covids)
 plot(coastlines, add=T)
 #oppure se no va!!!!!
 install.packages("rnaturalearth")
+library(rnaturalearth)
 coastlines <- rnaturalearth::ne_download(scale = 10, type = 'coastline', category = 'physical')
 
 #let's change the color of the graph
