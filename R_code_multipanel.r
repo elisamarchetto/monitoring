@@ -14,7 +14,7 @@ pairs(meuse) #intersections of variables in a kind of matrix
 
 #to correlate only some variables in the plot but we need to indicate the data set that we are going to use
 pairs(~ cadmium+copper+lead+zinc,data=meuse)
-pairs(meuse[,3:6])
+pairs(meuse[,3:6]) #from 3(cadmium) to 6(zinc)
 #16 and 15 are the same function!
 
 pairs(meuse[,3:6],pch=19)
