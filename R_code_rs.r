@@ -40,3 +40,4 @@ plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="Lin") #baceuse the plants are refl
 
 
 
+
