@@ -37,7 +37,47 @@ plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") #we can use only 3 bands at 
 
 plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="Lin") #baceuse the plants are reflecting a lot the NIR
 
+setwd("C:/lab/")
+load("remote_sensing.RData")
+library(raster)
+p224r63_1988 <- brick("p224r63_1988_masked.grd")
+plot(p224r63_1988)
 
+par(mfrow=c(2,1))
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+
+par(mfrow=c(2,1))
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+# to see the noise (clouds/humidity) in the images. Enhance the noise
+par(mfrow=c(2,1))
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist") # hist for the calcutation of the area of integral that describes the shock of enhancing the color
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # amount of humudity was high because of evapotrasnpirantion
+
+# to calculate DVI of 2011
+dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre
+cl <- colorRampPalette(c('yellow','light blue','lightpink4'))(100)
+plot(dvi2011, col=cl)
+
+# to calculate DVI of 1988
+dvi1988 <- p224r63_1988$B4_sre - p224r63_1988$B3_sre
+cl <- colorRampPalette(c('yellow','light blue','red'))(100)
+plot(dvi1988, col=cl)
+
+# consider the difference between DVI
+diff <- dvi2011 - dvi1988
+plot(diff)
+
+#change the grain= the dimention of pixels. To see for exemple the corridors. In RS grain=resolution
+# function is aggregate()....resempling
+p224r63_2011res1 <- aggregate(p224r63_2011, fact=10) #fact: factor is the amount of time increase the pixels
+p224r63_2011res2 <- aggregate(p224r63_2011, fact=100)
+
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011res1, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011res2, r=4, g=3, b=2, stretch="Lin")
 
 
 
