@@ -4,7 +4,8 @@
 
 install.packages("rasterdiv")
 library(rasterdiv)
-install.packages("rasterVis") #raster visualisation
+install.packages("rasterVis")#raster visualisation
+library(rasterVis)
 data(copNDVI)
 plot(copNDVI)
 copNDVI <- reclassify(copNDVI, cbind(253, 255, NA), right=TRUE) #removing water pixels using cbind argument
