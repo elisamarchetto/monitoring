@@ -15,8 +15,7 @@ ggRGB(p224r63_1988,5,4,3)
 par(mfrow=c(1,2))
 plotRGB(p224r63_1988, r=5, g=4, b=3, stretch="Lin")
 plotRGB(p224r63_2011, r=5, g=4, b=3, stretch="Lin")
-#or
-ggpairs(p224r63_2011)
+
 #reduce the nlayers (bands)
 #PricipalComponentAnalysis
 #bands needd to be correleted each other
@@ -26,6 +25,8 @@ par(mfrow=c(3,1)) #for exemple to see the pattern correlation
 plot(p224r63_2011$B1_sre, p224r63_2011$B3_sre)
 plot(p224r63_2011$B1_sre, p224r63_2011$B4_sre)
 plot(p224r63_2011$B1_sre, p224r63_2011$B2_sre)
+#or
+pairs(p224r63_2011)
 
 #for PCA: decreasing the resolution
 p224r63_2011_res <- aggregate(p224r63_2011, fact=10)
@@ -35,7 +36,7 @@ p224r63_2011_pca
 plot(p224r63_2011_pca$map)#plot all of PC. PC1 is accounting for most of variation 
 #in $model show the PC in proportion (percentage)
 summary(p224r63_2011_pca$model)
-ggpairs(p224r63_2011)
+pairs(p224r63_2011)
 #plot PC1,PC2,PC3
 plotRGB(p224r63_2011_pca$map, r=1, g=2, b=3, stretch="Lin")
 
