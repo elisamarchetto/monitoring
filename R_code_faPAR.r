@@ -25,3 +25,7 @@ ls() #lookin for faPAR10
 faPAR10
 #let's see how much space need for 8-bits images
 writeRaster(copNDVI, "copNDVI.tif") #write the data copNDVI in .tif, 5.5MB 
+#faPAR10 in in bits from 0 to 0.93. Change from 0 to 255
+faPAR <- stretch(faPAR10,minv=0,maxv=250)
+writeRaster(faPAR, "faPAR.tif")
+faPAR
