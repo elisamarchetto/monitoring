@@ -20,3 +20,8 @@ dev.off()
 pdf("faPAR.pdf")
 levelplot(faPAR10)
 dev.off()
+
+ls() #lookin for faPAR10
+faPAR10
+#let's see how much space need for 8-bits images
+writeRaster(copNDVI, "copNDVI.tif") #write the data copNDVI in .tif, 5.5MB 
