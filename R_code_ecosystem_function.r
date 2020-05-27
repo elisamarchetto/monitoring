@@ -4,7 +4,7 @@
 
 install.packages("rasterdiv")
 library(rasterdiv)
-install.packages("rasterVis")#raster visualisation
+install.packages("rasterVis")#raster visualisation, es. levelplot function
 library(rasterVis)
 data(copNDVI)
 plot(copNDVI)
@@ -38,14 +38,14 @@ plotRGB(defor2, r=1, g=2, b=3, stretch="Lin")
 
 #calculate the DVI for both images
 
-dvi1 <- defor1$defor1_.1 - defor1$defor1_.2
+dvi1 <- defor1$defor1_.1 - defor1$defor1_.2 # $link the layers, each layer rappresents a band
 dvi2 <- defor2$defor2_.1 - defor2$defor2_.2
 cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100)
 par(mfrow=c(1,2))
 plot(dvi1, col=cl)
 plot(dvi2, col=cl)
 
-difdvi <- dvi1 - dvi2
+difdvi <- dvi1 - dvi2 # diffecence of DVI between the 2 images, made to observe the rate of loss of vagetation between 2011 and 1988
 dev.off()
 cld <- colorRampPalette(c('blue','white','red'))(100) 
 plot(difdvi, col=cld) # to see the loss of ecosystem services
