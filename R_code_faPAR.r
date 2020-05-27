@@ -8,8 +8,8 @@ setwd("C:/lab/")
 plot(copNDVI)
 copNDVI <- reclassify(copNDVI, cbind(253:255, NA))
 levelplot(copNDVI)
-faPAR10 <- raster("faPAR10.tif")
-levelplot(faPAR10)
+faPAR10 <- raster("faPAR10.tif") # file already aggregated of fact 10
+levelplot(faPAR10) ####ELISA SCRIVI COS'E' FPPPPPPPARRR
 
 pdf("copNDVI.pdf")
 levelplot(copNDVI)
