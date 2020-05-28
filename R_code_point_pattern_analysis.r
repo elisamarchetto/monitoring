@@ -1,16 +1,16 @@
 #Point pattern analysis: density map
 
 #install library packages for density analysis
-install.packages("spatstat")
+install.packages("spatstat") # toolbox for analysing Spatial Point Patterns
 library(spatstat)
 attach(covid)
 head(covid)
 
-covids <- ppp(lon, lat, c(-180, 180), c(-90, 90)) #c for the range of lat and long, ppp is panel point pattern
+covids <- ppp(lon, lat, c(-180, 180), c(-90, 90)) #ppp means is panel point pattern, it creates a point pattern dataset in the two-dimensional plane. for the range of values of lat and long. 
 #to build the density map
-d<- density(covids) #covids in other to write the object of ppp
-plot(d) #to see the map
-#to see the point of covids on the map
+d<- density(covids) 
+plot(d) 
+#to see the point of covids object on the map
 points(covids)
 
 #to open last work
@@ -19,14 +19,14 @@ load("point_pattern_analysis.RData")
 library(spatstat)
 
 #to use vector format in coastline
-install.packages("rgdal")
+install.packages("rgdal") #Geospatial Data Abstraction. Data georeferenced
 library(rgdal)
 
-coastlines <- readOGR("ne_10m_coastline.shp")
+coastlines <- readOGR("ne_10m_coastline.shp") #readORG is rgdal function to read shapefile goreferenced
 plot(d)
 points(covids)
 plot(coastlines, add=T)
-#oppure se no va!!!!!
+#or
 install.packages("rnaturalearth")
 library(rnaturalearth)
 coastlines <- rnaturalearth::ne_download(scale = 10, type = 'coastline', category = 'physical')
