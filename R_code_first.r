@@ -1,17 +1,19 @@
-install.packages("sp")
+# test for the first time functions and codes in R software
+
+install.packages("sp") # Classes and methods for spatial data
 library(sp)
 
 data(meuse)
 
-#structure of data set:
+# have a look at the structure of dataset:
 meuse
 
-# look of first part of data set
+# look of first part of dataset
 head(meuse)
 
 #correlete two varialables
-attach(meuse)
+attach(meuse) # for using plot function
 plot(zinc,copper)
 plot(zinc,copper, col="green")
-plot(zinc,copper, col="green",pch=19)
-plot(zinc,copper, col="green",pch=19,cex=2)
+plot(zinc,copper, col="green",pch=19) # pch is a command to change the symbol in the graph
+plot(zinc,copper, col="green",pch=19,cex=2) # cex is the command for the dimention of pch in this case
