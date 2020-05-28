@@ -5,9 +5,9 @@ library(sp)
 data(meuse) #to recall the data
 head(meuse)
 
-#to use the coordinates in group
+#coordinates is the functionn to visualize the variables in the space 
 coordinates(meuse)=~x+y #thinking spatialy
-plot(meuse) #the whole variables in meuse
+plot(meuse) # plot all the variables in meuse
 spplot(meuse, "zinc") #for a spatial variable
 
 #exercise: spatial amount of copper
@@ -25,7 +25,7 @@ bubble(meuse, "zinc", col="red")
 #inport data base covid in R
 #setting the working directory: lab
 setwd("C:/lab")
-covid<-read.table("covid_agg.csv", head=T)
+covid<-read.table("covid_agg.csv", head=T) # ELISAAAA INCICA COSA E' HEAD=T
 head(covid)
 
 attach(covid)
@@ -35,7 +35,7 @@ plot(country,cases, las=1) #horizontal labels
 plot(country,cases, las=2) #perperdincolar labels
 plot(country,cases, las=3) #vertical labels
 plot(country,cases, las=3, cex.axis=0.5) #cex for the size of labels axis
-install.packages("ggplot2")
+install.packages("ggplot2") # A system for 'declaratively' creating graphics, based on "The Grammar of Graphics"
 
 #use the function
 library(ggplot2)
@@ -43,7 +43,7 @@ library(ggplot2)
 #to open the saved work
 setwd("C:/lab")
 load("R_code_spatial")
-ls() #list of objects i've done
+ls() #list of objects i've done, es. the functions of my work space
 # I'll obtain "covid" "meuse"
 
 library(ggplot2)
@@ -51,7 +51,7 @@ library(ggplot2)
 data(mpg)
 head(mpg)
 #function we are going to use ggplot.. components: data, aes, geometry
-ggplot(mpg,aes(x=displ,y=hwy)) + geom_point()
+ggplot(mpg,aes(x=displ,y=hwy)) + geom_point()#aes: aesthetic mapping choosing the variables of the dataset to visualize, geom_ :Specifies the geometric objects that define the graph type
 ggplot(mpg,aes(x=displ,y=hwy)) + geom_line()
 ggplot(mpg,aes(x=displ,y=hwy)) + geom_polygon()
 
