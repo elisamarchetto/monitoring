@@ -1,11 +1,12 @@
 
 setwd("C:/lab/")
 library(raster)
-library(RStoolbox)
+library(RStoolbox) # for performing PCA
 
 p224r63_2011 <- brick("p224r63_2011_masked.grd") 
 plotRGB(p224r63_2011, r=5, g=4, b=3, stretch="Lin")
-library(ggplot2) #an other way to visualize RGB image
+ # Explaining an other way to visualize RGB image
+library(ggplot2) 
 ggRGB(p224r63_2011,5,4,3)
 
 p224r63_1988 <- brick("p224r63_1988_masked.grd")
@@ -16,7 +17,7 @@ par(mfrow=c(1,2))
 plotRGB(p224r63_1988, r=5, g=4, b=3, stretch="Lin")
 plotRGB(p224r63_2011, r=5, g=4, b=3, stretch="Lin")
 
-#reduce the nlayers (bands)
+#reducing the nlayers (bands)
 #PricipalComponentAnalysis
 #bands needd to be correleted each other
 names(p224r63_2011) #to see the names of variables
