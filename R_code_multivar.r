@@ -1,14 +1,14 @@
 #R code for multivariate analysis
 
-install.packages("vegan") #vegetation analysis
+install.packages("vegan") #vegetation and diversity analysis
 library(vegan)
 setwd("C:/lab/")
-biomes<-read.table("biomes.csv", header=T, sep=",")
+biomes<-read.table("biomes.csv", header=T, sep=",") #ELISA INDICA COSA E SEP, biomes.cvs is the data frame
 head(biomes)
 
-#make use of multivarite analysis
-#DEtrended CORrespondance ANAlysis---to reduce the dimenctions
-#function: decorana
+## Multivariate analysis
+#DEtrended CORrespondance ANAlysis---to reduce the dimenctions relatede to the variables
+#the function is decorana
 
 multivar<-decorana(biomes)
 plot(multivar)
@@ -19,7 +19,7 @@ Eigenvalues     0.5117 0.3036 0.12125 0.14267
 Decorana values 0.5360 0.2869 0.08136 0.04814
 Axis lengths    3.7004 3.1166 1.30055 1.47888
 
-# 0.5117 52% of percent..+DCA2%. arrived at 80%, thus we lost 20% ( DCA3,DCA4).. the species we don't see inside the convex shape are out side because we lost 20%
+# 0.5117 52% of percent..+DCA2%. arrived at 80%, thus we lost 20% ( DCA3,DCA4).. the species we don't see inside the convex line outside because we lost 20%
 #the points into the graph are the plots, so the 20 dimentions
 
 #put the plots in their own biomes
