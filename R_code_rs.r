@@ -34,7 +34,7 @@ par(mfrow=c(4,1))
 #plot as the human eyes see the image using RGB components 
 dev.off() # close the previous work
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") # it is possible to use only 3 bands at the time
-
+# stretch: stretching improves the appearance of the data by spreading the pixel values along a histogra
 plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="Lin") # r for the B4: NIR, the plants reflect much more in NIR
 
 setwd("C:/lab/")
@@ -50,13 +50,13 @@ plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 par(mfrow=c(2,1))
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
-# to see the noise (clouds/humidity) in the images. Enhance the noise
+# to see the noise (clouds/humidity) in the images. Enhance the noise with stretch="hist"
 par(mfrow=c(2,1))
-plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist") # hist for the calcutation of the area of integral that describes the shock of enhancing the color
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist") # hist: calcutation of the area under the integral that describes the shock of enhancing the color
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # amount of humudity was high because of evapotrasnpirantion
 
 # to calculate DVI of 2011
-dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre
+dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre #BA: NIR - B3: red.  p224r63_2011$B4_sre linking the layer of B4
 cl <- colorRampPalette(c('yellow','light blue','lightpink4'))(100)
 plot(dvi2011, col=cl)
 
@@ -70,7 +70,7 @@ diff <- dvi2011 - dvi1988
 plot(diff)
 
 #change the grain= the dimention of pixels. To see for exemple the corridors. In RS grain=resolution
-# function is aggregate()....resempling
+# function is aggregate()
 p224r63_2011res1 <- aggregate(p224r63_2011, fact=10) #fact: factor is the amount of time increase the pixels
 p224r63_2011res2 <- aggregate(p224r63_2011, fact=100)
 
