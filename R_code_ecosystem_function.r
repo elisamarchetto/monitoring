@@ -1,14 +1,14 @@
-#biomass allover the world anche its changes in ecosystem functions
-#data copernicus with Sentinel 2
+#biomass all over the world and the effect of its changes in ecosystem functions
+#data copernicus with Sentinel-2
 #chemical cycling
 
-install.packages("rasterdiv")
+install.packages("rasterdiv") #functions to calculate indices of diversity
 library(rasterdiv)
 install.packages("rasterVis")#raster visualisation, es. levelplot function
 library(rasterVis)
-data(copNDVI)
+data(copNDVI) # from rasterdiv library. It is a RasterLayer sets at 8-bits. The dataset is the Copernicus Long-term (1999-2017) average Normalise Difference Vegetation Index
 plot(copNDVI)
-copNDVI <- reclassify(copNDVI, cbind(253, 255, NA), right=TRUE) #removing water pixels using cbind argument
+copNDVI <- reclassify(copNDVI, cbind(253, 255, NA), right=TRUE) #removing water pixels 253, 255, NA using cbind argument
 copNDVI10 <- aggregate(copNDVI, fact=10)
 levelplot(copNDVI10)
 
@@ -28,7 +28,7 @@ labs(x="Longitude",y="Latitude", fill="")+
 
 
 setwd("C:/lab/")
-defor1 <- brick("defor1_.jpg") #to import images with bands
+defor1 <- brick("defor1_.jpg")
 defor2 <- brick("defor2_.jpg")
 #band1=NIR, Band2=red, band3=green defor1_.1 or defor2_.1 (band1)
 
@@ -45,8 +45,8 @@ par(mfrow=c(1,2))
 plot(dvi1, col=cl)
 plot(dvi2, col=cl)
 
-difdvi <- dvi1 - dvi2 # diffecence of DVI between the 2 images, made to observe the rate of loss of vagetation between 2011 and 1988
+difdvi <- dvi1 - dvi2 # diffecence of DVI between the 2 images. Observation at the rate of loss of vagetation between 2011 and 1988
 dev.off()
 cld <- colorRampPalette(c('blue','white','red'))(100) 
-plot(difdvi, col=cld) # to see the loss of ecosystem services
+plot(difdvi, col=cld) #loss of ecosystem services
 hist(difdvi) #high loss in biomass ecosystem services
