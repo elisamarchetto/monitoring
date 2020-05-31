@@ -3,11 +3,11 @@
 install.packages("vegan") #vegetation and diversity analysis
 library(vegan)
 setwd("C:/lab/")
-biomes<-read.table("biomes.csv", header=T, sep=",") #ELISA INDICA COSA E SEP, biomes.cvs is the data frame
+biomes<-read.table("biomes.csv", header=T, sep=",") # sep="," in cvs file the variables are separeted by comma, biomes.cvs is the data frame
 head(biomes)
 
 ## Multivariate analysis
-#DEtrended CORrespondance ANAlysis---to reduce the dimenctions relatede to the variables
+#DEtrended CORrespondance ANAlysis---to reduce the dimenctions (variables)
 #the function is decorana
 
 multivar<-decorana(biomes)
