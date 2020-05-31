@@ -9,7 +9,7 @@ snt <- brick("snt_r10.tif")
 plot(snt)
 plotRGB(snt,3,2,1, stretch="lin")
 plotRGB(snt,4,2,1, stretch="lin")
-# how the different layers(bands) are related... for PCA analysis
+# how the different layers(bands) are related... for a better understanding of PCA analysis
 pairs(snt)
 sntpca <- rasterPCA(snt)
 #information about the output of the model, in other words the percentage of variance related to the components
@@ -31,9 +31,9 @@ window <- matrix(1, nrow = 3, ncol = 3) # 3x3 pixel is the extent of moving wind
 # recall library RStoolbox for performing PCA analysis. The goal is to apply standard deviation to the principal component
 cladpca <- rasterPCA(clad) #the bands are correlated each other hence the PC describe 98%
 sd_clad <- focal(cladpca$map$PC1, w=window, fun=sd) # show the structural complexity of cladonia, variability of a single organism
-PC1_agg <- aggregate(cladpca$map$PC1, fact=10) # to make focal caculation faster
+PC1_agg <- aggregate(cladpca$map$PC1, fact=10) # resempling the reslution to make focal caculation faster
 sd_cladagg <- focal(PC1_agg, w=window, fun=sd)
 cl <- colorRampPalette(c('yellow','violet','black'))(100) 
 par(mfrow=c(1,2))
 plot(sd_clad, col=cl)
-plot(sd_cladagg, col=cl)
+plot(sd_cladagg, col=cl) # less accurancy
