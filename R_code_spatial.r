@@ -8,7 +8,7 @@ head(meuse)
 #coordinates is the functionn to visualize the variables in the space 
 coordinates(meuse)=~x+y #thinking spatialy
 plot(meuse) # plot all the variables in meuse
-spplot(meuse, "zinc") #for a spatial variable
+spplot(meuse, "zinc") #for a spatial variable (dipens on coordinates function)
 
 #exercise: spatial amount of copper
 spplot(meuse, "copper")
@@ -25,7 +25,7 @@ bubble(meuse, "zinc", col="red")
 #inport data base covid in R
 #setting the working directory: lab
 setwd("C:/lab")
-covid<-read.table("covid_agg.csv", head=T) # ELISAAAA INCICA COSA E' HEAD=T
+covid<-read.table("covid_agg.csv", head=T) # the file contains the names of the variables as its first line
 head(covid)
 
 attach(covid)
