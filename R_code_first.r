@@ -8,11 +8,11 @@ data(meuse)
 # have a look at the structure of dataset:
 meuse
 
-# look of first part of dataset
+#having a look at the first part of dataset
 head(meuse)
 
 #correlete two varialables
-attach(meuse) # for using plot function
+attach(meuse) # attach values for using plot function
 plot(zinc,copper)
 plot(zinc,copper, col="green")
 plot(zinc,copper, col="green",pch=19) # pch is a command to change the symbol in the graph
