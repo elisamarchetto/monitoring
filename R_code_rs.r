@@ -1,7 +1,7 @@
 # Remote Sensing
 
 install.packages("RStoolbox")# toolbox for remote sensing image processing and analysis
-install.packages("raster")
+install.packages("raster") # Analyzing and modeling of gridded spatial data
 
 setwd("C:/lab/")
 library(raster)
@@ -11,7 +11,7 @@ p224r63_2011 <- brick("p224r63_2011_masked.grd") #import RasterBrick: nlayers
 plot(p224r63_2011)
 cl <- colorRampPalette(c('black','grey','light grey'))(100)
 plot(p224r63_2011, col=cl)
-#Landsat satellite: image with resolution of 30m (each pixel)...B1 blu, B2 green, B3 red, B4 NIR ecc
+#Landsat satellite: image with resolution of 30m (each pixel)...B1 blu, B2 green, B3 red, B4 NIR for this RasterBrick
 
 #multiframe of different plots
 par(mfrow=c(2,2)) # mf for multiframe with a graph 2 x 2 to visualize 4 separated ghaphs of 4 bands( B1,B2,B3,B4)
@@ -56,12 +56,12 @@ plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist") # hist: calcutation of the 
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # amount of humudity was high because of evapotrasnpirantion
 
 # to calculate DVI of 2011
-dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre #BA: NIR - B3: red.  p224r63_2011$B4_sre linking the layer of B4
+dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre #BA: NIR - B3: red. DVI is used to quantify vegetation greenness. p224r63_2011$B4_sre linking the layer of B4
 cl <- colorRampPalette(c('yellow','light blue','lightpink4'))(100)
 plot(dvi2011, col=cl)
 
 # to calculate DVI of 1988
-dvi1988 <- p224r63_1988$B4_sre - p224r63_1988$B3_sre
+dvi1988 <- p224r63_1988$B4_sre - p224r63_1988$B3_sre 
 cl <- colorRampPalette(c('yellow','light blue','red'))(100)
 plot(dvi1988, col=cl)
 
