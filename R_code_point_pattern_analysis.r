@@ -6,7 +6,7 @@ library(spatstat)
 attach(covid)
 head(covid)
 
-covids <- ppp(lon, lat, c(-180, 180), c(-90, 90)) #ppp means is panel point pattern, it creates a point pattern dataset in the two-dimensional plane. for the range of values of lat and long. 
+covids <- ppp(lon, lat, c(-180, 180), c(-90, 90)) #ppp means panel point pattern, it creates a point pattern dataset in the two-dimensional plane for the range of values of lat and long. 
 #to build the density map
 d<- density(covids) 
 plot(d) 
@@ -37,7 +37,7 @@ plot(d, col=cl)
 points(covids)
 plot(coastlines, add=T)
 
-#export your R in Pdf
+#export in Pdf
 pdf("covid_density.pdf")
 clr <- colorRampPalette(c("light green", "yellow","orange","violet")) (100)
 plot(d, col=clr, main="Densities of covid-19")
