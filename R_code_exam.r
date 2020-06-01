@@ -21,7 +21,14 @@ octB04 <- raster("B04.tif")
 octB08 <- raster("B08.tif")
 
 #or directly in SNAP
-
-
+rlist <- list.files(pattern="sub")
+import1 <- lapply(rlist, raster)
+biocrast <- stack(import1)
+agg_biocrast <- aggregate(biocrast, fact=10)
+dvi <- agg_biocrast$subset_3_of_T30SWG_20191016T110041_B08 - agg_biocrast$subset_2_of_T30SWG_20191016T110041_B04
+cldif <- colorRampPalette(c('blue','black','yellow'))(100)
+plot(dvi, col=cldif)
+writeRaster(biocrast, "biocrast.tif")
+writeRaster(agg_biocrast, "agg_biocrast.tif")
 
 
