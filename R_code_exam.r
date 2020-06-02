@@ -6,7 +6,7 @@ library(raster)
 library(rasterVis)
 library(RStoolbox)
 
-setwd("C/lab/exam/")
+setwd("C:/lab/exam/")
 
 # Sentinel-2 satellite data
 # extrapolation directly in R to optain GeoTIFF
@@ -47,21 +47,27 @@ b8  <- raster("subset_3_of_T30SWG_20191016T110041_B08.tif")
 b4 <- raster("subset_2_of_T30SWG_20191016T110041_B04.tif")
 b3 <- raster("subset_1_of_T30SWG_20191016T110041_B03.tif")
 r_brick <- brick(b3, b4, b8)
-r_brickPCA <- rasterPCA(r_brick)
-window <- matrix(1, nrow = 5, ncol = 5)
+r_brickres <- aggregate(r_brick, fact=10)
+r_brick_bit <- stretch(r_brickres, minv=0, maxv=255)
+r_brickPCA <- rasterPCA(r_brick_bit)
 
-mean <- focal(r_brickPCA$map$PC1, w=window, fun="mean")
+window <- matrix(1, nrow = 5, ncol = 5)
+mean <- focal(r_brickPCA$map$PC1, w=window, fun=mean)
 
 # Abs of Bgreen, Bred
 b4 <- raster("subset_2_of_T30SWG_20191016T110041_B04.tif")
 b3 <- raster("subset_1_of_T30SWG_20191016T110041_B03.tif")
 r_brick1 <- brick(b3, b4)
-r_brick1PCA <- rasterPCA(r_brick1)
-abs <- focal(r_brick1PCA$map$PC1, w=window, fun="abs")
+r_brick1res <- aggregate(r_brick1, fact=10)
+r_brick1_bit <- stretch(r_brick1res, minv=0, maxv=255)
+r_brick1PCA <- rasterPCA(r_brick1_bit)
+
+abs <- focal(r_brick1PCA$map$PC1, w=window, fun=abs)
 # BSCI = (1-L*|B4-B3|) / (meanB8, B4, B3), L=2
 
 bsci <- (1 -2*(abs)) / (mean)
-plot(bsci, col=cl)
+bsci_bit <- stretch(bsci, minv=0, maxv=255)
+plot(bsci_bit, col=clb)
 
 
 
