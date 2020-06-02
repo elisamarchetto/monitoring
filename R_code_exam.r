@@ -73,7 +73,14 @@ bsci <- c$layer.1 - c$layer.2
 bsci_bit <- stretch(bsci, minv=0, maxv=255)
 plot(bsci_bit, col=clb)
 
+biocrast <- brick("agg_biocrast.tif")
+biocrast_bit <- stretch(biocrast, minv=0, maxv=255)
+ndvi <- (biocrast_bit$agg_biocrast.4 - biocrast_bit$agg_biocrast.3) / (biocrast_bit$agg_biocrast.4 + biocrast_bit$agg_biocrast.3)
+ ndvi_bit <- stretch(ndvi, minv=0, maxv=255)
 
+par(mfrow=c(2,1))
+plot(ndvi_bit, col=cl)
+plot(bsci_bit, col=clb)
 
 
 
