@@ -41,7 +41,7 @@ ndvi <- (biocrast$biocrast.4 - biocrast$biocrast.3) / (biocrast$biocrast.4 + bio
 ci <- 1 - (biocrast$biocrast.3 - biocrast$biocrast.1) / (biocrast$biocrast.3 - biocrast$biocrast.1) # Crust Index: it doesn't work for such a big extention
 plot(ndvi, col=cl)
 plot(ci, col=cl)
-### let's calulate BSCI: Biological Soil Crust Index 
+### let's calulate BSCI: Biological Soil Crust Index. (1 - L*|B4-B3|) / (meanB8,B4,B3), L=2
 # mean of Bgreen, Bred, B NIR
 b8  <- raster("subset_3_of_T30SWG_20191016T110041_B08.tif")
 b4 <- raster("subset_2_of_T30SWG_20191016T110041_B04.tif")
@@ -63,9 +63,13 @@ r_brick1_bit <- stretch(r_brick1res, minv=0, maxv=255)
 r_brick1PCA <- rasterPCA(r_brick1_bit)
 
 abs <- focal(r_brick1PCA$map$PC1, w=window, fun=abs)
-# BSCI = (1-L*|B4-B3|) / (meanB8, B4, B3), L=2
 
-bsci <- (1 -2*(abs)) / (mean)
+a <- 2*abs
+b <- 1 - a
+bb <- <- stretch(b, minv=0, maxv=255)
+meanb <- stretch(mean, minv=0, maxv=255)
+c <- brick(bb, meanb)
+bsci <- c$layer.1 - c$layer.2 
 bsci_bit <- stretch(bsci, minv=0, maxv=255)
 plot(bsci_bit, col=clb)
 
