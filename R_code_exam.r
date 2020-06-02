@@ -48,15 +48,16 @@ b4 <- raster("subset_2_of_T30SWG_20191016T110041_B04.tif")
 b3 <- raster("subset_1_of_T30SWG_20191016T110041_B03.tif")
 r_brick <- brick(b3, b4, b8)
 r_brickPCA <- rasterPCA(r_brick)
+window <- matrix(1, nrow = 5, ncol = 5)
 
-mean <- calc(r_brickPCA$map$PC1, fun = mean)
+mean <- focal(r_brickPCA$map$PC1, w=window, fun="mean")
 
 # Abs of Bgreen, Bred
 b4 <- raster("subset_2_of_T30SWG_20191016T110041_B04.tif")
 b3 <- raster("subset_1_of_T30SWG_20191016T110041_B03.tif")
 r_brick1 <- brick(b3, b4)
 r_brick1PCA <- rasterPCA(r_brick1)
-abs <- calc(r_brick1PCA$map$PC1, fun = abs)
+abs <- focal(r_brick1PCA$map$PC1, w=window, fun="abs")
 # BSCI = (1-L*|B4-B3|) / (meanB8, B4, B3), L=2
 
 bsci <- (1 -2*(abs)) / (mean)
