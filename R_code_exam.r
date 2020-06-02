@@ -26,9 +26,20 @@ import1 <- lapply(rlist, raster)
 biocrast <- stack(import1)
 agg_biocrast <- aggregate(biocrast, fact=10)
 dvi <- agg_biocrast$subset_3_of_T30SWG_20191016T110041_B08 - agg_biocrast$subset_2_of_T30SWG_20191016T110041_B04
-cldif <- colorRampPalette(c('blue','black','yellow'))(100)
-plot(dvi, col=cldif)
+cl <-  colorRampPalette(c("black", "green", "red"))(100)
+clb <-  colorRampPalette(c("black", "gold", "blue"))(100)
+plot(dvi, col=cl)
 writeRaster(biocrast, "biocrast.tif")
 writeRaster(agg_biocrast, "agg_biocrast.tif")
+
+ndvi <- (biocrast$biocrast.4 - biocrast$biocrast.3) / (biocrast$biocrast.4 + biocrast$biocrast.3)
+ci <- 1 - (biocrast$biocrast.3 - biocrast$biocrast.1) / (biocrast$biocrast.3 - biocrast$biocrast.1) # it doesn't work
+plot(ndvi, col=cl)
+plot(ci, col=cl)
+
+
+
+
+mean <- calc(STACK1, fun = mean)
 
 
