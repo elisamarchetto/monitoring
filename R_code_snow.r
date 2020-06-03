@@ -32,3 +32,23 @@ plot(snow.multitemp, col=cl)
 
 # let's make a prediction
 source("prediction.r") #read r code
+
+#setwd("C:/lab/snow/") and library(raster)
+
+load("snow_.RData")
+prediction <- raster("predicted.2025.norm.tif")
+plot(prediction, col=cl)
+# how to export the output
+writeRaster(prediction, "final.tif")
+#how to make the pdf of the graph, ex. stack of all of output
+final.stack <- stack(snow.multitemp, prediction)
+plot(final.stack, col=cl)
+# export the graph in PDF
+pdf("my_final_exciting_graph.pdf")
+plot(final.stack, col=cl)
+dev.off()
+# export in png
+png("my_final_exciting_graph.png")
+plot(final.stack, col=cl)
+dev.off()
+
