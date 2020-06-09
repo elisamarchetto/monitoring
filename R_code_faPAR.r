@@ -37,7 +37,7 @@ faPAR
 erosion <- c(12, 14, 16, 24, 26, 40, 55, 67) # vector of values
 hm <- c(30, 100, 150, 200, 260, 340, 460, 600)
 plot(erosion, hm, col="red", pch=19, xlab="erosion", ylab="heavy metals")
-model1 <- lm(hm ~ erosion) # lm is the function to set the linear model; hm is y axis, and erosion xis
+model1 <- lm(hm ~ erosion) # lm is the function to set the linear model; hm is y axis, and erosion x axis
 summary(model1)
 # equation: hm= 9.2752erosion-26.9888, R-squared:  0.9747(prediction for the correctness of the model), p-value: 5.127e-06 (the result of the correlation is not a casuality)
 # line described by slope b and intersection a: abline function
