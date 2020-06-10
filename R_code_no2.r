@@ -2,6 +2,7 @@
 library(raster)
 
 setwd("C:/lab/no2/")
+# create RasterStack
 rlist <- list.files(pattern="EN")
 import <- lapply(rlist, raster)
 EN <- stack(import)
@@ -25,7 +26,7 @@ boxplot(EN,outline=F, horizontal=T)
 boxplot(EN,outline=F, horizontal=T, axes=T) 
 
 plot(EN$EN_0001, EN$EN_0013)
-abline(0,1,col="red") # to see if the values are under the line, this means decrease!! 
+abline(0,1,col="red") # to see if the values are under the line, this means a decrease in NO2 concentration!! 
 
 # fast version of import and plot of many data for lazy people!
 rlist <- list.files(pattern="snow")
