@@ -1,6 +1,6 @@
-#biomass all over the world and the effect of its changes in ecosystem functions
-#data copernicus with Sentinel-2
-#chemical cycling
+## Global biomass and the effect of its changes in ecosystem functions
+# Data copernicus with Sentinel-2
+# Chemical cycling
 
 install.packages("rasterdiv") #functions to calculate indices of diversity
 library(rasterdiv)
@@ -38,7 +38,7 @@ plotRGB(defor2, r=1, g=2, b=3, stretch="Lin")
 
 #calculate the DVI for both images
 
-dvi1 <- defor1$defor1_.1 - defor1$defor1_.2 # $link the layers, each layer rappresents a band
+dvi1 <- defor1$defor1_.1 - defor1$defor1_.2 # $ symbol to link the layers, each layer rappresents a band
 dvi2 <- defor2$defor2_.1 - defor2$defor2_.2
 cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100)
 par(mfrow=c(1,2))
