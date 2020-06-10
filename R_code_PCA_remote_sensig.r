@@ -5,7 +5,9 @@ library(RStoolbox) # for performing PCA
 
 p224r63_2011 <- brick("p224r63_2011_masked.grd") 
 plotRGB(p224r63_2011, r=5, g=4, b=3, stretch="Lin")
- # Explaining an other way to visualize RGB image
+
+
+## An other way to visualize RGB image
 library(ggplot2) 
 ggRGB(p224r63_2011,5,4,3)
 
@@ -17,9 +19,9 @@ par(mfrow=c(1,2))
 plotRGB(p224r63_1988, r=5, g=4, b=3, stretch="Lin")
 plotRGB(p224r63_2011, r=5, g=4, b=3, stretch="Lin")
 
-#reducing the nlayers (bands)
+#reducing the nlayers (bands): PCA
 #PricipalComponentAnalysis
-#bands needd to be correleted each other
+
 names(p224r63_2011) #to see the names of variables
 plot(p224r63_2011$B1_sre, p224r63_2011$B3_sre) #to see if the variables bands are correlated, better with pairs function
 par(mfrow=c(3,1)) #for exemple to see the pattern correlation 
@@ -33,7 +35,7 @@ p224r63_2011_res <- aggregate(p224r63_2011, fact=10) # accurancy is lower but R 
 #library needed RStoolbox
 p224r63_2011_pca <- rasterPCA(p224r63_2011_res)
 p224r63_2011_pca
-plot(p224r63_2011_pca$map)#plot all of PC. PC1 is accounting for most of variation 
+plot(p224r63_2011_pca$map)#plot all of PC. PC1 is accounting for most of the variations 
 #in $model show the PC in proportion
 summary(p224r63_2011_pca$model) # PC weight in percentage, how a PC summarizes the variables
 pairs(p224r63_2011)
