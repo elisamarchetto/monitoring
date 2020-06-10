@@ -61,6 +61,6 @@ faPAR10p <- extract(faPAR10,pts)
 #build the linear model between copNDVIp and faPAR10 (copNDVIp because the calculation is faster with less values)
 # the line is calculated by reducing the distance between the points (x;y) in the graph
 # phothosythesis vs biomass
-model2 <- lm(faPAR10p ~ copNDVIp) # R = 04 because in conifer forest biomass is high and phothosynthesis but not that high. p = 2 ^-16 two variables are related each other
+model2 <- lm(faPAR10p ~ copNDVIp) # R = 0.4 because in conifer forest biomass is high and phothosynthesis but not that high. p = 2 ^-16 two variables are related each other
 plot(faPAR10p, copNDVIp)
 abline(model2, col="red")
