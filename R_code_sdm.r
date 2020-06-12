@@ -32,12 +32,12 @@ points(species[species$Occurrence == 1,], pch=16) #medium vegetation
 
 ## Prediction model
 #set the data
-d <- sdmData(train=species, predictors=preds)
+d <- sdmData(train=species, predictors=preds)#assign the data
 d
 
 m1 <- sdm(Occurrence ~ elevation + precipitation + temperature + vegetation, data=d, methods = "glm")# y axis is occurence, x the predictors: y= a +bx1 + cx2 +..
 # logistic curve is better (asintot) but is possible to use linear model: methods="...." is the type of model
-p1 <- predict(m1, newdata=preds)
+p1 <- predict(m1, newdata=preds) # let's predict the distribution of the species
 
 ###probability of distribution of species in space###
 plot(p1, col=cl)
