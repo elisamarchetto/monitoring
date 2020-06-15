@@ -5,15 +5,15 @@
 #2. R_code_multipanel.r
 #3. R_code_Spatial.r
 #4. R_code_point_pattern_analysis.r
-#5. R_code_multivar.r
-#6. R_code_rs.r
-#7. R_code_ecosystem_function.r
-#8. R_code_PCA_remote_sensing.r
-#9. R_code_radiance.r
+#5. R_code_multivariate_analysis.r
+#6. R_code_remote_sensing.r
+#7. R_code_ecosystem_functions.r
+#8. R_code_multivariate_analysis_RS_data.r
+#9. R_code_ecosystem's_reflectance.r
 #10. R_code_faPAR.r
 #11. R_code_EBVs.r
-#12. R_code_snow.r
-#13. R_code_no2.r
+#12. R_code_snow_cover.r
+#13. R_code_monitoring_air_pollution_no2.r
 #14. R_code_crop.r
 #15. R_code_interpolation.r
 #16. R_code_sdm.r
@@ -187,7 +187,7 @@ points(covids)
 plot(coastlines, add=T)
 dev.off()
 
-## 5. R_code_multivar.r
+## 5. R_code_multivariate_analysis.r
 
 #R code for multivariate analysis
 
@@ -224,7 +224,7 @@ ordiellipse(multivar, type, col=1:4, kind = "ehull", lwd=3) #col for each biomes
 
 ordispider(multivar, type, col=1:4, label = T) # type is the column we want to see, label is refered to the name of type column we want to see in the graph
 
-######6. R_code_rs.r
+######6. R_code_remote_sensing.r
 
 # Remote Sensing
 
@@ -307,7 +307,7 @@ plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_2011res1, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_2011res2, r=4, g=3, b=2, stretch="Lin")
 
-######7. R_code_ecosystem_function.r
+######7. R_code_ecosystem_functions.r
 
 ## Global biomass and the effect of its changes in ecosystem functions
 # Data copernicus with Sentinel-2
@@ -362,7 +362,7 @@ cld <- colorRampPalette(c('blue','white','red'))(100)
 plot(difdvi, col=cld) #loss of ecosystem services
 hist(difdvi) #high loss in biomass ecosystem services
 
-######8. R_code_PCA_remote_sensing.r
+######8. R_code_multivariate_analysis_RS_data.r
 
 setwd("C:/lab/")
 library(raster)
@@ -418,9 +418,8 @@ plot(difpca, col=cldif)
 plot(difpca$PC1,col=cldif)
 plotRGB(difpca, r=1, g=2, b=3, stretch="Lin") #highest possible variation and where
 
-######9. R_code_radiance.r
-
-#R_code_radiance.r
+######9. R_code_ecosystem's_reflectance.r
+#R_code_ecosystem's_reflectance.r
 
 library(raster)
 toy <- raster(ncol=2, nrow=2, xmn=1, xmx=2, ymn=1, ymx=2) # for creating the matrix as a layer
@@ -563,9 +562,9 @@ par(mfrow=c(1,2))
 plot(sd_clad, col=cl)
 plot(sd_cladagg, col=cl) # less accurancy
 
-######12. R_code_snow.r
+######12. R_code_snow_cover.r
 
-# R_code_snow.r
+# R_code_snow_cover.r
 
 setwd("C:/lab/")
 install.packages("ncdf4") # in order to import ncdf file
@@ -636,9 +635,9 @@ png("my_final_exciting_graph.png")
 plot(final.stack, col=cl)
 dev.off()
 
-######13. R_code_no2.r
+######13. R_code_monitoring_air_pollution_no2.r
 
-# R_code_no2.r
+# R_code_monitoring_air_pollution_no2.r
 library(raster)
 
 setwd("C:/lab/no2/")
