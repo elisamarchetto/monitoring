@@ -25,7 +25,7 @@
 # test for the first time functions and codes in R software
 
 install.packages("sp") # Classes and methods for spatial data
-library(sp)
+library(sp)# function to recall the package installed
 
 data(meuse)
 
@@ -36,9 +36,9 @@ meuse
 head(meuse)
 
 #correlete two varialables
-attach(meuse) # attach values for using plot function
+attach(meuse) # attach variables for using plot function
 plot(zinc,copper)
-plot(zinc,copper, col="green")
+plot(zinc,copper, col="green") # col means color 
 plot(zinc,copper, col="green",pch=19) # pch is a command to change the symbol in the graph
 plot(zinc,copper, col="green",pch=19,cex=2) # cex is the command for the dimention of pch in this case
 
@@ -62,7 +62,6 @@ pairs(meuse) #intersections of variables in a kind of matrix. pairs is a functio
 pairs(~ cadmium+copper+lead+zinc,data=meuse)
 #or
 pairs(meuse[,3:6]) # [,3:6] from 3(cadmium) to 6(zinc)
-#16 and 15 are the same function!
 
 pairs(meuse[,3:6],pch=19)
 
@@ -86,10 +85,10 @@ spplot(meuse, "zinc") #for a spatial variable (dipens on coordinates function)
 #exercise: spatial amount of copper
 spplot(meuse, "copper")
 
-#to change the title in the graph using main= "....
+#change the title in the graph using main= "....
 spplot(meuse, "copper", main="Copper concentration")
 
-#for duplicating the size of a variable
+# displaying "zinc" spatialy (plot) duplicating the size of the symbol
 bubble(meuse, "zinc")
 #exercise: change the color of zinc in red
 bubble(meuse, "zinc", col="red")
@@ -116,11 +115,11 @@ library(ggplot2)
 #to open the saved work
 setwd("C:/lab")
 load("R_code_spatial")
-ls() #list of objects i've done, es. the functions of my work space
+ls() #list of objects used
 # I'll obtain "covid" "meuse"
 
 library(ggplot2)
-#data set to use
+#dataset to use
 data(mpg)
 head(mpg)
 #function we are going to use ggplot.. components: data, aes, geometry
@@ -148,7 +147,7 @@ plot(d)
 #to see the point of covids object on the map
 points(covids)
 
-#to open last work
+#open the last work: load()
 setwd("C:/lab/")
 load("point_pattern_analysis.RData")
 library(spatstat)
@@ -194,7 +193,7 @@ dev.off()
 install.packages("vegan") #vegetation and diversity analysis
 library(vegan)
 setwd("C:/lab/")
-biomes<-read.table("biomes.csv", header=T, sep=",") # sep="," in cvs file the variables are separeted by comma, biomes.cvs is the data frame
+biomes<-read.table("biomes.csv", header=T, sep=",") #header of the colums, sep="," in cvs file the variables are separeted by comma, biomes.cvs is the data frame
 head(biomes)
 
 ## Multivariate analysis
@@ -242,10 +241,10 @@ plot(p224r63_2011, col=cl)
 #Landsat satellite: image with resolution of 30m (each pixel)...B1 blu, B2 green, B3 red, B4 NIR for this RasterBrick
 
 #multiframe of different plots
-par(mfrow=c(2,2)) # mf for multiframe with a graph 2 x 2 to visualize 4 separated ghaphs of 4 bands( B1,B2,B3,B4)
+par(mfrow=c(2,2)) # mfrow for multiframe with a graph 2 x 2 to visualize 4 separated ghaphs of 4 bands( B1,B2,B3,B4)
 
 clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) #B1
-plot(p224r63_2011$B1_sre, col=clb)
+plot(p224r63_2011$B1_sre, col=clb)# $B1_sre linking layer 1 of the RasterBrick
 
 clg <- colorRampPalette(c('dark green','green','light green'))(100)#B2 
 plot(p224r63_2011$B2_sre, col=clg)
@@ -261,7 +260,7 @@ par(mfrow=c(4,1))
 
 #plot as the human eyes see the image using RGB components 
 dev.off() # close the previous work
-plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") # it is possible to use only 3 bands at the time
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") # it is possible to use only 3 bands at the time; red component "r" links layer 3
 # stretch: stretching improves the appearance of the data by spreading the pixel values along a histogra
 plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="Lin") # r for the B4: NIR, the plants reflect much more in NIR
 
@@ -297,9 +296,9 @@ plot(dvi1988, col=cl)
 diff <- dvi2011 - dvi1988
 plot(diff)
 
-#change the grain= the dimention of pixels. To see for exemple the corridors. In RS grain=resolution
-# function is aggregate()
-p224r63_2011res1 <- aggregate(p224r63_2011, fact=10) #fact: factor is the amount of time increase the pixels
+#change the grain= the dimention of pixels. In RS grain=resolution
+# function is aggregate(), obtaining lower resolution and bigger cell pixel.
+p224r63_2011res1 <- aggregate(p224r63_2011, fact=10) #fact: horizontal and vertical aggregation factor of the pixel
 p224r63_2011res2 <- aggregate(p224r63_2011, fact=100)
 
 par(mfrow=c(3,1))
@@ -429,7 +428,7 @@ text(toy, digits=2)
 toy2bits <- stretch(toy,minv=0,maxv=3) # reshape the matrix with 2^2 pixel (2 bits), so 4 values
 storage.mode(toy2bits[]) = "integer" # integer values
 plot(toy2bits) #bits: possible combinations of pixels based on NDs
-text(toy2bits, digits=2) #lower is the amount of bits lower is the diversity
+text(toy2bits, digits=2) #lower is the amount of bits lower is the "diversity"
 toy4bits <- stretch(toy,minv=0,maxv=15)
 storage.mode(toy4bits[]) = "integer"
 plot(toy4bits)
@@ -530,7 +529,7 @@ library(RStoolbox) #for PCA
 ## raster function import only a single layer, brick multiple layers
 snt <- brick("snt_r10.tif")
 plot(snt)
-plotRGB(snt,3,2,1, stretch="lin")
+plotRGB(snt,3,2,1, stretch="lin")# r=3, g=2, b=1
 plotRGB(snt,4,2,1, stretch="lin")
 
 pairs(snt)# how the different layers(bands) are related... for a better understanding of PCA analysis
@@ -539,10 +538,10 @@ sntpca <- rasterPCA(snt)
 summary(sntpca$model) # proportion of variance: 0.7015076 for the PC1(good approximation), almost the 70%
 plotRGB(sntpca$map, 1, 2, 3, stretch="lin")
 #calculte the standard deviation using a moving window (5x5)
-# create the moving window: it is a matrix
+# create the moving window: it is a matrix that moves by 5x5 pixel and the result is 1 final pixel
 window <- matrix(1, nrow = 5, ncol = 5) # all the values are set to 1, empty window
-# focal function for sd, in this case, works only for RasterLayer
-sd_snt <- focal(sntpca$map$PC1, w=window, fun=sd)
+# focal function for sd, standard deviation, it works only for RasterLayer
+sd_snt <- focal(sntpca$map$PC1, w=window, fun=sd)# fun is the function to be calculated by focal, w is the moving window
 cl <- colorRampPalette(c('dark blue','green','orange','red'))(100) 
 plot(sd_snt, col=cl)
 
@@ -573,7 +572,7 @@ library(raster)
 snowmay <- raster("c_gls_SCE_202005260000_NHEMI_VIIRS_V1.0.1.nc") # only one layer
 cl <- colorRampPalette(c('darkblue','blue','light blue'))(100)
 
-setwd("C:/lab/snow/")
+setwd("C:/lab/snow/") #creating snow folder is easier to apply lapply function
 snow2000 <- raster("snow2000r.tif")
 snow2005 <- raster("snow2005r.tif")
 snow2010 <- raster("snow2010r.tif")
@@ -677,6 +676,8 @@ plot(snow.multitemp$snow2000r, snow.multitemp$snow2020r) # better change in time
 abline(0,1,col="red")
 
 ######14. R_code_crop.r
+
+# change the extention of a raster image by using zoom or crop functions
 
 setwd("C:/lab/")
 library(ncdf4)
