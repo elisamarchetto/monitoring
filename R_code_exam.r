@@ -55,8 +55,8 @@ attach(meuse) #make use of data set of meuse
 meuse #to see all the variables
 plot(cadmium)
 
-#make che pairs vairables in plot
-pairs(meuse) #intersections of variables in a kind of matrix. pairs is a function stored in GGally (in this case)
+#make pairs vairables in plot
+pairs(meuse) #plot matrix, consisting of scatterplots for each variable-combination of a data frame. pairs is a function stored in GGally (in this case)
 
 #to correlate only some variables in the plot. It needs to be indicated the dataset that is going to be used
 pairs(~ cadmium+copper+lead+zinc,data=meuse)
@@ -66,7 +66,7 @@ pairs(meuse[,3:6]) # [,3:6] from 3(cadmium) to 6(zinc)
 pairs(meuse[,3:6],pch=19)
 
 library(GGally)
-ggpairs(meuse[,3:6])
+ggpairs(meuse[,3:6]) # to prettify the scatterplots
 
 #######3. R_code_Spatial.r
 
@@ -80,7 +80,7 @@ head(meuse)
 #coordinates is the functionn to visualize the variables in the space 
 coordinates(meuse)=~x+y #thinking spatialy
 plot(meuse) # plot all the variables in meuse
-spplot(meuse, "zinc") #for a spatial variable (dipens on coordinates function)
+spplot(meuse, "zinc") #for a spatial variable (it dipends on coordinates function)
 
 #exercise: spatial amount of copper
 spplot(meuse, "copper")
@@ -140,7 +140,7 @@ library(spatstat)
 attach(covid)
 head(covid)
 
-covids <- ppp(lon, lat, c(-180, 180), c(-90, 90)) #ppp means panel point pattern, it creates a point pattern dataset in the two-dimensional plane for the range of values of lat and long. 
+covids <- ppp(lon, lat, c(-180, 180), c(-90, 90)) #ppp means panel point pattern. The general form is ppp(x.coordinates, y.coordinates, x.range, y.range) it creates a point pattern dataset in the two-dimensional plane for the range of values of lat and long. 
 #to build the density map
 d<- density(covids) 
 plot(d) 
@@ -219,9 +219,9 @@ attach(biomes_types)
 
 
 # linking the biome types with the plots X species
-ordiellipse(multivar, type, col=1:4, kind = "ehull", lwd=3) #col for each biomes, kind for the type of grafh, lwd for the dimention of the colored line
+ordiellipse(multivar, type, col=1:4, kind = "ehull", lwd=3) # function to connect the plots by a ellipse with their own biome. col for each biomes, kind for the type of grafh, lwd for the dimention of the colored line
 
-ordispider(multivar, type, col=1:4, label = T) # type is the column we want to see, label is refered to the name of type column we want to see in the graph
+ordispider(multivar, type, col=1:4, label = T) #  return the coordinates to which each point is connected; type is the column we want to see, label is refered to the name of type column we want to see in the graph
 
 ######6. R_code_remote_sensing.r
 
@@ -241,7 +241,7 @@ plot(p224r63_2011, col=cl)
 #Landsat satellite: image with resolution of 30m (each pixel)...B1 blu, B2 green, B3 red, B4 NIR for this RasterBrick
 
 #multiframe of different plots
-par(mfrow=c(2,2)) # mfrow for multiframe with a graph 2 x 2 to visualize 4 separated ghaphs of 4 bands( B1,B2,B3,B4)
+par(mfrow=c(2,2)) # multiple graphs in a single plot: 2rows x 2 columns to visualize 4 separated ghaphs of 4 bands( B1,B2,B3,B4)
 
 clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) #B1
 plot(p224r63_2011$B1_sre, col=clb)# $B1_sre linking layer 1 of the RasterBrick
@@ -258,10 +258,10 @@ plot(p224r63_2011$B4_sre, col=cln)
 # an other way to visualize the 4 bands in a page
 par(mfrow=c(4,1))
 
-#plot as the human eyes see the image using RGB components 
+#plot as the human eyes see the image using RGB components. Graph with colors that our eyes perceive
 dev.off() # close the previous work
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") # it is possible to use only 3 bands at the time; red component "r" links layer 3
-# stretch: stretching improves the appearance of the data by spreading the pixel values along a histogra
+# stretch: stretching improves the appearance of the data by spreading the pixel values along a histogram; improve clarity and contrast 
 plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="Lin") # r for the B4: NIR, the plants reflect much more in NIR
 
 setwd("C:/lab/")
@@ -318,21 +318,21 @@ install.packages("rasterVis")#raster visualisation, es. levelplot function
 library(rasterVis)
 data(copNDVI) # from rasterdiv library. It is a RasterLayer sets at 8-bits. The dataset is the Copernicus Long-term (1999-2017) average Normalise Difference Vegetation Index
 plot(copNDVI)
-copNDVI <- reclassify(copNDVI, cbind(253, 255, NA), right=TRUE) #removing water pixels 253, 255, NA using cbind argument
-copNDVI10 <- aggregate(copNDVI, fact=10)
-levelplot(copNDVI10)
+copNDVI <- reclassify(copNDVI, cbind(253, 255, NA), right=TRUE) #removing water pixels 253, 255, NA using cbind argument; cbind(combines vector, matrix or data frame by columns): combine from 253 to 255 and NA pixel values
+copNDVI10 <- aggregate(copNDVI, fact=10) # fact of 10 is a horizoltal and vertical aggregation of pixel by a value of 10 pixel
+levelplot(copNDVI10) #plot a raster object and displaying the level of the values along x and t axis
 
-library(ggplot2)
-myPalette <- colorRampPalette(c('white','green','dark green'))
-sc <- scale_colour_gradientn(colours = myPalette(100), limits=c(1, 8))
+#library(ggplot2)
+#myPalette <- colorRampPalette(c('white','green','dark green'))
+#sc <- scale_colour_gradientn(colours = myPalette(100), limits=c(1, 8))
 
  
-# to plot NDVI score on the map
-ggR(copNDVI, geom_raster = TRUE) +
-scale_fill_gradientn(name = "NDVI", colours = myPalette(100))+
-labs(x="Longitude",y="Latitude", fill="")+
+## to plot NDVI score on the map
+#ggR(copNDVI, geom_raster = TRUE) +
+#scale_fill_gradientn(name = "NDVI", colours = myPalette(100))+
+#labs(x="Longitude",y="Latitude", fill="")+
 #   theme(legend.position = "bottom") +
-  NULL
+  #NULL
 # +
 # ggtitle("NDVI")
 
@@ -359,7 +359,7 @@ difdvi <- dvi1 - dvi2 # diffecence of DVI between the 2 images. Observation at t
 dev.off()
 cld <- colorRampPalette(c('blue','white','red'))(100) 
 plot(difdvi, col=cld) #loss of ecosystem services
-hist(difdvi) #high loss in biomass ecosystem services
+hist(difdvi) #histogram of difdvi: high loss in biomass ecosystem services
 
 ######8. R_code_multivariate_analysis_RS_data.r
 
@@ -422,7 +422,7 @@ plotRGB(difpca, r=1, g=2, b=3, stretch="Lin") #highest possible variation and wh
 
 library(raster)
 toy <- raster(ncol=2, nrow=2, xmn=1, xmx=2, ymn=1, ymx=2) # for creating the matrix as a layer
-values(toy) <- c(1.13,1.44,1.55,3.4)
+values(toy) <- c(1.13,1.44,1.55,3.4) #asign the values to each cells
 plot(toy)
 text(toy, digits=2)
 toy2bits <- stretch(toy,minv=0,maxv=3) # reshape the matrix with 2^2 pixel (2 bits), so 4 values
