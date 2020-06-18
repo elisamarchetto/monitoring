@@ -37,7 +37,7 @@ head(meuse)
 
 #correlete two varialables
 attach(meuse) # attach variables for using plot function
-plot(zinc,copper)
+plot(zinc,copper) #displaying graph
 plot(zinc,copper, col="green") # col means color 
 plot(zinc,copper, col="green",pch=19) # pch is a command to change the symbol in the graph
 plot(zinc,copper, col="green",pch=19,cex=2) # cex is the command for the dimention of pch in this case
@@ -88,7 +88,7 @@ spplot(meuse, "copper")
 #change the title in the graph using main= "....
 spplot(meuse, "copper", main="Copper concentration")
 
-# displaying "zinc" spatialy (plot) duplicating the size of the symbol
+# displaying "zinc" spatialy (plot) duplicating the size of the symbol according with the dimention of the value
 bubble(meuse, "zinc")
 #exercise: change the color of zinc in red
 bubble(meuse, "zinc", col="red")
@@ -107,16 +107,15 @@ plot(country,cases, las=1) #horizontal labels
 plot(country,cases, las=2) #perperdincolar labels
 plot(country,cases, las=3) #vertical labels
 plot(country,cases, las=3, cex.axis=0.5) #cex for the size of labels axis
-install.packages("ggplot2") # A system for 'declaratively' creating graphics, based on "The Grammar of Graphics"
+install.packages("ggplot2") # A system for "declaratively" creating graphics, based on "The Grammar of Graphics"
 
-#use the function
+# to use the function in ggplot2 require the package
 library(ggplot2)
 
 #to open the saved work
 setwd("C:/lab")
 load("R_code_spatial")
 ls() #list of objects used
-# I'll obtain "covid" "meuse"
 
 library(ggplot2)
 #dataset to use
@@ -541,7 +540,7 @@ plotRGB(sntpca$map, 1, 2, 3, stretch="lin")
 #calculte the standard deviation using a moving window (5x5)
 # create the moving window: it is a matrix that moves by 5x5 pixel and the result is 1 final pixel. It reduces the calculation of focal function
 window <- matrix(1, nrow = 5, ncol = 5) # all the values are set to 1, empty window
-# focal function for sd, standard deviation, it works only for RasterLayer
+# focal function for sd, standard deviation, it works only for RasterLayer. In raster package
 sd_snt <- focal(sntpca$map$PC1, w=window, fun=sd)# fun is the function to be calculated by focal, sd is the standard deviation:  measure of the amount of variation of a set of a values, w is the moving window
 cl <- colorRampPalette(c('dark blue','green','orange','red'))(100) 
 plot(sd_snt, col=cl)
@@ -746,7 +745,7 @@ inp.psam.ppp <- ppp(x=E,y=N,c(356450,372240),c(5059800,5064150)) # coordinates
 marks(inp.psam.ppp) <- C_org # ecological data
 C <- Smooth(inp.psam.ppp) # warning message:lower amount of data (or no point) for some part because of clumped set
 plot(C)
-points(inp.psam.ppp) # solution: mean value for each clumped zone or select the zone of the graph and zoom on the top of them: separation of the main graph in several graphs
+points(inp.psam.ppp) # solution: mean value for each clumped zone or select the zone of the graph and zoom on the top of them: separation of the main graphs in several graphs
  
 ######16. R_code_sdm.r
 
@@ -789,7 +788,7 @@ d
 
 m1 <- sdm(Occurrence ~ elevation + precipitation + temperature + vegetation, data=d, methods = "glm")# y axis is occurence, x the predictors: y= a +bx1 + cx2 +..
 # logistic curve is better (asintot) but is possible to use linear model: methods="...." is the type of model
-p1 <- predict(m1, newdata=preds) # let's predict the distribution of the species
+p1 <- predict(m1, newdata=preds) # let's predict the distribution of the species. Predicting sdm using the method set m1 using the object preds
 
 ###probability of distribution of species in space###
 plot(p1, col=cl)
