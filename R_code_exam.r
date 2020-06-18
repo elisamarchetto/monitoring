@@ -451,7 +451,8 @@ text(toy8bits, digits=2)
 
 ######10. R_code_faPAR.r
 
-# Chemical cycling from sitellite
+#faPAR: Essential Climate Variable
+# Chemical cycling from sitellite: carbon cycle
 # Regression Analysis
 
 library(raster)
@@ -463,7 +464,7 @@ plot(copNDVI)
 copNDVI <- reclassify(copNDVI, cbind(253:255, NA)) # remove pixels related to water
 levelplot(copNDVI)
 faPAR10 <- raster("faPAR10.tif") # file already aggregated of fact 10
-levelplot(faPAR10) #### faPAR: Fraction of Absorbed Photosynthetically Active Radiation. Proxy of carbon dioxide assimilation
+levelplot(faPAR10) #### faPAR: Fraction of Absorbed Photosynthetically Active Radiation. Proxy of carbon dioxide assimilation and canopy's energy absorption capacity
 
 pdf("copNDVI.pdf")
 levelplot(copNDVI)
@@ -480,7 +481,7 @@ faPAR10
 #let's see how much space need for 8-bits images
 writeRaster(copNDVI, "copNDVI.tif") #write the data copNDVI in .tif, 5.5MB 
 #function to pass at 8-bits(from 0 to 255 combinations of DNs)
-faPAR <- stretch(faPAR10,minv=0,maxv=250)
+faPAR <- stretch(faPAR10,minv=0,maxv=255)
 writeRaster(faPAR, "faPAR.tif")
 faPAR
 
@@ -521,7 +522,7 @@ abline(model2, col="red")
 ######11. R_code_EBVs.r
 
 ### dealing with Essential Biodiversity Variables
-# understanding heterogeneity
+# understanding ecosystem structure, the heterogeneity with standard deviation
 
 setwd("C:/lab/")
 library(raster)
@@ -538,14 +539,15 @@ sntpca <- rasterPCA(snt)
 summary(sntpca$model) # proportion of variance: 0.7015076 for the PC1(good approximation), almost the 70%
 plotRGB(sntpca$map, 1, 2, 3, stretch="lin")
 #calculte the standard deviation using a moving window (5x5)
-# create the moving window: it is a matrix that moves by 5x5 pixel and the result is 1 final pixel
+# create the moving window: it is a matrix that moves by 5x5 pixel and the result is 1 final pixel. It reduces the calculation of focal function
 window <- matrix(1, nrow = 5, ncol = 5) # all the values are set to 1, empty window
 # focal function for sd, standard deviation, it works only for RasterLayer
-sd_snt <- focal(sntpca$map$PC1, w=window, fun=sd)# fun is the function to be calculated by focal, w is the moving window
+sd_snt <- focal(sntpca$map$PC1, w=window, fun=sd)# fun is the function to be calculated by focal, sd is the standard deviation:  measure of the amount of variation of a set of a values, w is the moving window
 cl <- colorRampPalette(c('dark blue','green','orange','red'))(100) 
 plot(sd_snt, col=cl)
 
 ##folcal function can be applied also to an image directly taken in field: cladonia.jpg
+# detecting the organism structure by standard deviation
 
 #library(raster), to open the image with several layers: brick function
 clad <- brick("cladonia_stellaris_calaita.JPG")
@@ -704,11 +706,12 @@ attach(inp) #attach the dataset
 
 plot(X,Y) # Y west coordinates
 summary(inp) #let's see the minumum and maximum of X and Y, in order to give an extent to spatstat
+#convert the data to a point pattern object
 inppp <- ppp(x=X, y=Y, c(716000,718000),c(4859000,4861000)) # range of min and max of X and Y, assign the coordinates to spatstat
 # giving information about the variable: lables
 #names(inp) #names of the variables
-marks(inppp) <- Canopy.cov
-canopy <- Smooth(inppp)# visualize the data were they are not been measured in pixel
+marks(inppp) <- Canopy.cov # add variable to inpp object
+canopy <- Smooth(inppp)# visualize the data were they are not been measured. Smooth canopy.cov as interpolation surface estimatation where the dat have not been recorded
 ##list validation distance of value from the line that record the values: means measured the amount of error
 plot(canopy)#density
 points(inppp, col="green")
