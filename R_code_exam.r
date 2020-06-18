@@ -711,7 +711,7 @@ inppp <- ppp(x=X, y=Y, c(716000,718000),c(4859000,4861000)) # range of min and m
 # giving information about the variable: lables
 #names(inp) #names of the variables
 marks(inppp) <- Canopy.cov # add variable to inpp object
-canopy <- Smooth(inppp)# visualize the data were they are not been measured. Smooth canopy.cov as interpolation surface estimatation where the dat have not been recorded
+canopy <- Smooth(inppp)# visualize the data were they are not been measured. Smooth canopy.cov as interpolation of the surface estimatating where the dat have not been recorded
 ##list validation distance of value from the line that record the values: means measured the amount of error
 plot(canopy)#density
 points(inppp, col="green")
@@ -759,15 +759,15 @@ install.packages("sdm")
 library(sdm)
 library(raster) # for environmental variables
 library(rgdal) #input vector layers(for species)
-file <- system.file("external/species.shp", package="sdm") # system.file is the function to import the file into de sdm package
-species <- shapefile(file)
+file <- system.file("external/species.shp", package="sdm") # system.file is the function to import the file stored in sdm package
+species <- shapefile(file) # to read the .shp file
 plot(species)
-plot(species[species$Occurrence == 1,],col='blue',pch=16) # condition with [] , == equal to , comma for end the condition
+plot(species[species$Occurrence == 1,],col='blue',pch=16) # condition with [] , == equal to , comma for ending the condition
 points(species[species$Occurrence == 0,],col='red',pch=16) # points to add the occurrence to the plot
 
 # use of ecological variables
 path <- system.file("external", package="sdm")
-lst <- list.files(path=path,pattern='asc$',full.names = T) 
+lst <- list.files(path=path,pattern='asc$',full.names = T) # to list the predictors' files
 preds <- stack(lst)
 cl <- colorRampPalette(c('blue','orange','red','yellow')) (100)
 plot(preds, col=cl)
