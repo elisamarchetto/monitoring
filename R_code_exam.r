@@ -990,7 +990,7 @@ albedobox <- stack(albedoPCA2010b, albedoPCA2015b, albedoPCA2019b)
 boxplot(albedobox, outline=F, horizontal=T, axes=T, names=c("Albedo 2010", "Albedo 2015", "Albedo 2019"), main="Boxplot Albedo")
 
 
-# data limitation in boxplot analysis......so..mt_subsets with MODISTools
+# data limitation in boxplot analysis......so..mt_subsets with MODISTools (31 NDVI for the month of October)
 
 
 library(MODISTools)
@@ -1006,7 +1006,6 @@ VI <- mt_subset(product = "MOD13Q1",
                 internal = TRUE,
                 progress = FALSE)
 
-VI_r <- mt_to_raster(df = VI)
 V2 <- mt_subset(product = "MOD13Q1",
                 band = "250m_16_days_NDVI",
                 lat = 37,
@@ -1018,6 +1017,7 @@ V2 <- mt_subset(product = "MOD13Q1",
                 site_name = "testsite",
                 internal = TRUE,
                 progress = FALSE)
+
 V3 <- mt_subset(product = "MOD13Q1",
                 band = "250m_16_days_NDVI",
                 lat = 37,
@@ -1030,7 +1030,14 @@ V3 <- mt_subset(product = "MOD13Q1",
                 internal = TRUE,
                 progress = FALSE)
  
+VI_r <- mt_to_raster(df = VI)
+V2_r <- mt_to_raster(df = V2)
+V3_r <- mt_to_raster(df = V3)
 
+multit_NDVI <- stack(VI_r, V2_r, V3_r)
+extent <- c(-2.941667, -2.083333, 36.95417, 37.85417)
+multit_NDVIex <- crop(multit_NDVI, extent)
+boxplot(multit_NDVIex,outline=F, horizontal=T, axes=T, names=c("NDVI 2010", "NDVI 2015", "NDVI 2019"), main="Boxplot multitemporal NDVI")
 
 
 
