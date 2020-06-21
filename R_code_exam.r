@@ -27,7 +27,7 @@
 install.packages("sp") # Classes and methods for spatial data
 library(sp)# function to recall the package installed
 
-data(meuse)
+data(meuse) #recalling the dataset
 
 # have a look at the structure of dataset:
 meuse
@@ -47,13 +47,13 @@ plot(zinc,copper, col="green",pch=19,cex=2) # cex is the command for the dimenti
 #multipanel in R: monitoring ecosystems
 
 install.packages("GGally") #'GGally' extends 'ggplot2' by adding several functions to reduce the complexity of combining geometric objects
-library(sp)
+library(sp) # recall the package sp
 #require(sp) is the same of library(sp)
-data(meuse)
+data(meuse) #recalling the dataset
 attach(meuse) #make use of data set of meuse
 
 meuse #to see all the variables
-plot(cadmium)
+plot(cadmium) # plot a variable
 
 #make pairs vairables in plot
 pairs(meuse) #plot matrix, consisting of scatterplots for each variable-combination of a data frame. pairs is a function stored in GGally (in this case)
@@ -61,12 +61,12 @@ pairs(meuse) #plot matrix, consisting of scatterplots for each variable-combinat
 #to correlate only some variables in the plot. It needs to be indicated the dataset that is going to be used
 pairs(~ cadmium+copper+lead+zinc,data=meuse)
 #or
-pairs(meuse[,3:6]) # [,3:6] from 3(cadmium) to 6(zinc)
+pairs(meuse[,3:6]) # [,3:6] from 3(cadmium) to 6(zinc), it is the condition
 
 pairs(meuse[,3:6],pch=19)
 
 library(GGally)
-ggpairs(meuse[,3:6]) # to prettify the scatterplots
+ggpairs(meuse[,3:6]) # to prettify the scatterplots and having more information about the dispersion of the values for each variables
 
 #######3. R_code_Spatial.r
 
@@ -75,15 +75,15 @@ ggpairs(meuse[,3:6]) # to prettify the scatterplots
 library(sp)
 
 data(meuse) #to recall the data
-head(meuse)
+head(meuse) # head function shows first rows of the dataset
 
 #coordinates is the functionn to visualize the variables in the space 
 coordinates(meuse)=~x+y #thinking spatialy
 plot(meuse) # plot all the variables in meuse
-spplot(meuse, "zinc") #for a spatial variable (it dipends on coordinates function)
+spplot(meuse, "zinc") #for a spatial variable (it dipends on coordinates function), spplot dislpays the amount of a variable for each location
 
 #exercise: spatial amount of copper
-spplot(meuse, "copper")
+spplot(meuse, "copper") # asign the dataset and the variable
 
 #change the title in the graph using main= "....
 spplot(meuse, "copper", main="Copper concentration")
@@ -97,10 +97,10 @@ bubble(meuse, "zinc", col="red")
 #inport data base covid in R
 #setting the working directory: lab
 setwd("C:/lab")
-covid<-read.table("covid_agg.csv", head=T) # the file contains the names of the variables as its first line
+covid<-read.table("covid_agg.csv", head=T) # the file contains the names of the variables as its first line, header of the colums true
 head(covid)
 
-attach(covid)
+attach(covid) # make available the variables of the dataset
 plot(country,cases)
 plot(country,cases, las=0) #paralel labels
 plot(country,cases, las=1) #horizontal labels
@@ -113,7 +113,7 @@ install.packages("ggplot2") # A system for "declaratively" creating graphics, ba
 library(ggplot2)
 
 #to open the saved work
-setwd("C:/lab")
+setwd("C:/lab") # set the working directory in which the data are located
 load("R_code_spatial")
 ls() #list of objects used
 
@@ -123,11 +123,11 @@ data(mpg)
 head(mpg)
 #function we are going to use ggplot.. components: data, aes, geometry
 ggplot(mpg,aes(x=displ,y=hwy)) + geom_point()#aes: aesthetic mapping choosing the variables of the dataset to visualize, geom_ :Specifies the geometric objects that define the graph type
-ggplot(mpg,aes(x=displ,y=hwy)) + geom_line()
-ggplot(mpg,aes(x=displ,y=hwy)) + geom_polygon()
+ggplot(mpg,aes(x=displ,y=hwy)) + geom_line() # values linked as line
+ggplot(mpg,aes(x=displ,y=hwy)) + geom_polygon() # as polygon
 
 head(covid)
-ggplot(covid,aes(x=lon,y=lat, size=cases)) + geom_point() #lat and lon dipend on size
+ggplot(covid,aes(x=lon,y=lat, size=cases)) + geom_point() #lat and lon dipend on size, the size is the cases variable
 
 ######4. R_code_point_pattern_analysis.r
 
@@ -135,9 +135,9 @@ ggplot(covid,aes(x=lon,y=lat, size=cases)) + geom_point() #lat and lon dipend on
 
 #install library packages for density analysis
 install.packages("spatstat") # toolbox for analysing Spatial Point Patterns
-library(spatstat)
-attach(covid)
-head(covid)
+library(spatstat) #recalling the package
+attach(covid) #make use of variables
+head(covid) # seeing the first rows
 
 covids <- ppp(lon, lat, c(-180, 180), c(-90, 90)) #ppp means panel point pattern. The general form is ppp(x.coordinates, y.coordinates, x.range, y.range) it creates a point pattern dataset in the two-dimensional plane for the range of values of lat and long. 
 #to build the density map
@@ -148,7 +148,7 @@ points(covids)
 
 #open the last work: load()
 setwd("C:/lab/")
-load("point_pattern_analysis.RData")
+load("point_pattern_analysis.RData") #loading the working directory saved
 library(spatstat)
 
 #to use vector format in coastline
@@ -176,7 +176,7 @@ clr <- colorRampPalette(c("light green", "yellow","orange","violet")) (100)
 plot(d, col=clr, main="Densities of covid-19")
 points(covids)
 plot(coastlines, add=T)
-dev.off()
+dev.off() # to close the operation
 #or export in png
 png("covid_density.png")
 clr <- colorRampPalette(c("light green", "yellow","orange","violet")) (100)
@@ -190,16 +190,16 @@ dev.off()
 #R code for multivariate analysis
 
 install.packages("vegan") #vegetation and diversity analysis
-library(vegan)
+library(vegan) #recalling the package
 setwd("C:/lab/")
 biomes<-read.table("biomes.csv", header=T, sep=",") #header of the colums, sep="," in cvs file the variables are separeted by comma, biomes.cvs is the data frame
-head(biomes)
+head(biomes) # seeing first rows
 
 ## Multivariate analysis
 #DEtrended CORrespondance ANAlysis---to reduce the dimenctions (variables)
 #the function is decorana
 
-multivar<-decorana(biomes)
+multivar<-decorana(biomes) # decorana is the function to reduce the dimentions
 plot(multivar)
 plot(multivar, cex=1.2)
 
@@ -230,12 +230,12 @@ install.packages("RStoolbox")# toolbox for remote sensing image processing and a
 install.packages("raster") # Analyzing and modeling of gridded spatial data
 
 setwd("C:/lab/")
-library(raster)
+library(raster) # recalling the package to make use of the functions
 
 #import images
-p224r63_2011 <- brick("p224r63_2011_masked.grd") #import RasterBrick: nlayers
+p224r63_2011 <- brick("p224r63_2011_masked.grd") #import a file as RasterBrick: nlayers
 plot(p224r63_2011)
-cl <- colorRampPalette(c('black','grey','light grey'))(100)
+cl <- colorRampPalette(c('black','grey','light grey'))(100) 
 plot(p224r63_2011, col=cl)
 #Landsat satellite: image with resolution of 30m (each pixel)...B1 blu, B2 green, B3 red, B4 NIR for this RasterBrick
 
@@ -246,7 +246,7 @@ clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) #B1
 plot(p224r63_2011$B1_sre, col=clb)# $B1_sre linking layer 1 of the RasterBrick
 
 clg <- colorRampPalette(c('dark green','green','light green'))(100)#B2 
-plot(p224r63_2011$B2_sre, col=clg)
+plot(p224r63_2011$B2_sre, col=clg) # linking B2
 
 clr <- colorRampPalette(c('dark red','red','pink'))(100)#B3
 plot(p224r63_2011$B1_sre, col=clr)
@@ -266,15 +266,15 @@ plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="Lin") # r for the B4: NIR, the pla
 setwd("C:/lab/")
 load("remote_sensing.RData")
 library(raster)
-p224r63_1988 <- brick("p224r63_1988_masked.grd")
-plot(p224r63_1988)
+p224r63_1988 <- brick("p224r63_1988_masked.grd") #import rasterBrick: nlayers
+plot(p224r63_1988) # displaying nlayers on the map
 
-par(mfrow=c(2,1))
+par(mfrow=c(2,1)) # plot RGB images to look at the differences among the years
 plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 
 par(mfrow=c(2,1))
-plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin") # r=4 refered to Band NIR; highest reflectance of NIR for vegetation
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
 # to see the noise (clouds/humidity) in the images. Enhance the noise with stretch="hist"
 par(mfrow=c(2,1))
@@ -282,7 +282,7 @@ plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist") # hist: calcutation of the 
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # amount of humudity was high because of evapotrasnpirantion
 
 # to calculate DVI of 2011
-dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre #BA: NIR - B3: red. DVI is used to quantify vegetation greenness. p224r63_2011$B4_sre linking the layer of B4
+dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre #BA: NIR - B3: red. DVI is used to quantify vegetation greenness(how higher is NIR than red, more healthy is the plant). p224r63_2011$B4_sre linking the layer of B4
 cl <- colorRampPalette(c('yellow','light blue','lightpink4'))(100)
 plot(dvi2011, col=cl)
 
@@ -293,7 +293,7 @@ plot(dvi1988, col=cl)
 
 # consider the difference between DVI
 diff <- dvi2011 - dvi1988
-plot(diff)
+plot(diff) # loss and gain of vegetation
 
 #change the grain= the dimention of pixels. In RS grain=resolution
 # function is aggregate(), obtaining lower resolution and bigger cell pixel.
@@ -312,14 +312,14 @@ plotRGB(p224r63_2011res2, r=4, g=3, b=2, stretch="Lin")
 # Chemical cycling
 
 install.packages("rasterdiv") #functions to calculate indices of diversity
-library(rasterdiv)
+library(rasterdiv) # recalling package
 install.packages("rasterVis")#raster visualisation, es. levelplot function
 library(rasterVis)
 data(copNDVI) # from rasterdiv library. It is a RasterLayer sets at 8-bits. The dataset is the Copernicus Long-term (1999-2017) average Normalise Difference Vegetation Index
 plot(copNDVI)
 copNDVI <- reclassify(copNDVI, cbind(253, 255, NA), right=TRUE) #removing water pixels 253, 255, NA using cbind argument; cbind(combines vector, matrix or data frame by columns): combine from 253 to 255 and NA pixel values
 copNDVI10 <- aggregate(copNDVI, fact=10) # fact of 10 is a horizoltal and vertical aggregation of pixel by a value of 10 pixel
-levelplot(copNDVI10) #plot a raster object and displaying the level of the values along x and t axis
+levelplot(copNDVI10) #plot a raster object and displaying the level of the values along x and y axis
 
 #library(ggplot2)
 #myPalette <- colorRampPalette(c('white','green','dark green'))
@@ -336,12 +336,12 @@ levelplot(copNDVI10) #plot a raster object and displaying the level of the value
 # ggtitle("NDVI")
 
 
-setwd("C:/lab/")
-defor1 <- brick("defor1_.jpg")
+setwd("C:/lab/") # setting the working directory
+defor1 <- brick("defor1_.jpg") # import file as a raster with multiple layers
 defor2 <- brick("defor2_.jpg")
 #band1=NIR, Band2=red, band3=green defor1_.1 or defor2_.1 (band1)
 
-par(mfrow=c(2,1))
+par(mfrow=c(2,1)) # compare the RGB images
 plotRGB(defor1, r=1, g=2, b=3, stretch="Lin")
 plotRGB(defor2, r=1, g=2, b=3, stretch="Lin")
 
@@ -355,7 +355,7 @@ plot(dvi1, col=cl)
 plot(dvi2, col=cl)
 
 difdvi <- dvi1 - dvi2 # diffecence of DVI between the 2 images. Observation at the rate of loss of vagetation between 2011 and 1988
-dev.off()
+dev.off() # close the graph
 cld <- colorRampPalette(c('blue','white','red'))(100) 
 plot(difdvi, col=cld) #loss of ecosystem services
 hist(difdvi) #histogram of difdvi: high loss in biomass ecosystem services
@@ -363,11 +363,11 @@ hist(difdvi) #histogram of difdvi: high loss in biomass ecosystem services
 ######8. R_code_multivariate_analysis_RS_data.r
 
 setwd("C:/lab/")
-library(raster)
+library(raster) #recalling the package
 library(RStoolbox) # for performing PCA
 
-p224r63_2011 <- brick("p224r63_2011_masked.grd") 
-plotRGB(p224r63_2011, r=5, g=4, b=3, stretch="Lin")
+p224r63_2011 <- brick("p224r63_2011_masked.grd") #import file as rasterBrick
+plotRGB(p224r63_2011, r=5, g=4, b=3, stretch="Lin") # RGB image, r=5 for band NIR
 
 
 ## An other way to visualize RGB image
@@ -378,7 +378,7 @@ p224r63_1988 <- brick("p224r63_1988_masked.grd")
 plotRGB(p224r63_1988, r=5, g=4, b=3, stretch="Lin")
 ggRGB(p224r63_1988,5,4,3)
 
-par(mfrow=c(1,2))
+par(mfrow=c(1,2)) # see the difference between the images in one map
 plotRGB(p224r63_1988, r=5, g=4, b=3, stretch="Lin")
 plotRGB(p224r63_2011, r=5, g=4, b=3, stretch="Lin")
 
@@ -392,11 +392,11 @@ plot(p224r63_2011$B1_sre, p224r63_2011$B3_sre)
 plot(p224r63_2011$B1_sre, p224r63_2011$B4_sre)
 plot(p224r63_2011$B1_sre, p224r63_2011$B2_sre)
 #or
-pairs(p224r63_2011)
+pairs(p224r63_2011) # easier and in one map
 
-p224r63_2011_res <- aggregate(p224r63_2011, fact=10) # accurancy is lower but R calculation is faster
+p224r63_2011_res <- aggregate(p224r63_2011, fact=10) # reducing the resolution of a factor of 10, fact: horizontal and vertical aggregation factor of the pixel, accurancy is lower but R calculation is faster
 #library needed RStoolbox
-p224r63_2011_pca <- rasterPCA(p224r63_2011_res)
+p224r63_2011_pca <- rasterPCA(p224r63_2011_res) # function for applying PCA
 p224r63_2011_pca
 plot(p224r63_2011_pca$map)#plot all of PC. PC1 is accounting for most of the variations 
 #in $model show the PC in proportion
@@ -419,25 +419,27 @@ plotRGB(difpca, r=1, g=2, b=3, stretch="Lin") #highest possible variation and wh
 ######9. R_code_ecosystem's_reflectance.r
 #R_code_ecosystem's_reflectance.r
 
-library(raster)
+library(raster) # recalling the package
 toy <- raster(ncol=2, nrow=2, xmn=1, xmx=2, ymn=1, ymx=2) # for creating the matrix as a layer
 values(toy) <- c(1.13,1.44,1.55,3.4) #asign the values to each cells
-plot(toy)
-text(toy, digits=2)
-toy2bits <- stretch(toy,minv=0,maxv=3) # reshape the matrix with 2^2 pixel (2 bits), so 4 values
+plot(toy) # displaying on a map
+text(toy, digits=2) # max of digits after comma 2
+
+#bits: possible combinations of pixels based on NDs
+toy2bits <- stretch(toy,minv=0,maxv=3) # matrix with 2^2 pixel (2 bits), so 4 values. Stretch the pixel values from a min of 0 to max 3
 storage.mode(toy2bits[]) = "integer" # integer values
-plot(toy2bits) #bits: possible combinations of pixels based on NDs
+plot(toy2bits) 
 text(toy2bits, digits=2) #lower is the amount of bits lower is the "diversity"
-toy4bits <- stretch(toy,minv=0,maxv=15)
+toy4bits <- stretch(toy,minv=0,maxv=15) #2^4 combinations
 storage.mode(toy4bits[]) = "integer"
 plot(toy4bits)
 text(toy4bits, digits=2)
-toy8bits <- stretch(toy,minv=0,maxv=255) #better discrimination from one objects to an other
+toy8bits <- stretch(toy,minv=0,maxv=255) #better discrimination from one objects to an other. 2^8 combinations
 storage.mode(toy8bits[]) = "integer"
 plot(toy8bits)
 text(toy8bits, digits=2) 
 
-par(mfrow=c(1,4))
+par(mfrow=c(1,4)) # see on 1 map the difference of the pixel after having asigning bits values
 
 plot(toy)
 text(toy, digits=2)
@@ -454,17 +456,17 @@ text(toy8bits, digits=2)
 # Chemical cycling from sitellite: carbon cycle
 # Regression Analysis
 
-library(raster)
+library(raster) # recalling the package
 library(rasterVis) #for levelplot
 library(rasterdiv)
 
-setwd("C:/lab/")
+setwd("C:/lab/") # set the working directory
 plot(copNDVI)
-copNDVI <- reclassify(copNDVI, cbind(253:255, NA)) # remove pixels related to water
-levelplot(copNDVI)
-faPAR10 <- raster("faPAR10.tif") # file already aggregated of fact 10
+copNDVI <- reclassify(copNDVI, cbind(253:255, NA)) # remove pixels related to water 253, 255, NA using cbind argument
+levelplot(copNDVI) #plot a raster object and displaying the level of the values along x and y axis
+faPAR10 <- raster("faPAR10.tif") # import file as one layer; file already aggregated of fact 10
 levelplot(faPAR10) #### faPAR: Fraction of Absorbed Photosynthetically Active Radiation. Proxy of carbon dioxide assimilation and canopy's energy absorption capacity
-
+#creating a pdf
 pdf("copNDVI.pdf")
 levelplot(copNDVI)
 dev.off()
@@ -523,14 +525,14 @@ abline(model2, col="red")
 ### dealing with Essential Biodiversity Variables
 # understanding ecosystem structure, the heterogeneity with standard deviation
 
-setwd("C:/lab/")
-library(raster)
+setwd("C:/lab/") # set working directory
+library(raster) # recall package
 library(RStoolbox) #for PCA
 ## raster function import only a single layer, brick multiple layers
 snt <- brick("snt_r10.tif")
 plot(snt)
-plotRGB(snt,3,2,1, stretch="lin")# r=3, g=2, b=1
-plotRGB(snt,4,2,1, stretch="lin")
+plotRGB(snt,3,2,1, stretch="lin")# r=3, g=2, b=1; plot RGB image
+plotRGB(snt,4,2,1, stretch="lin") # r=4, band 4 is NIR
 
 pairs(snt)# how the different layers(bands) are related... for a better understanding of PCA analysis
 sntpca <- rasterPCA(snt)
@@ -566,21 +568,21 @@ plot(sd_cladagg, col=cl) # less accurancy
 
 # R_code_snow_cover.r
 
-setwd("C:/lab/")
+setwd("C:/lab/") #set working directory
 install.packages("ncdf4") # in order to import ncdf file
-library(ncdf4)
+library(ncdf4) # recall package
 library(raster)
-snowmay <- raster("c_gls_SCE_202005260000_NHEMI_VIIRS_V1.0.1.nc") # only one layer
+snowmay <- raster("c_gls_SCE_202005260000_NHEMI_VIIRS_V1.0.1.nc") # import the file: only one layer
 cl <- colorRampPalette(c('darkblue','blue','light blue'))(100)
 
 setwd("C:/lab/snow/") #creating snow folder is easier to apply lapply function
-snow2000 <- raster("snow2000r.tif")
+snow2000 <- raster("snow2000r.tif") #import file as 1 layer
 snow2005 <- raster("snow2005r.tif")
 snow2010 <- raster("snow2010r.tif")
 snow2015 <- raster("snow2015r.tif")
 snow2020 <- raster("snow2020r.tif")
 
-par(mfrow=c(2,3))
+par(mfrow=c(2,3)) # see the graphs related to the each year on 1 map. Multitemporal change in snow cover
 plot(snow2000, col=cl)
 plot(snow2005, col=cl)
 plot(snow2010, col=cl)
@@ -623,7 +625,7 @@ prediction <- raster("predicted.2025.norm.tif")
 plot(prediction, col=cl)
 # how to export the output
 writeRaster(prediction, "final.tif")
-#how to make the pdf of the graph, ex. stack of all of output
+#how to make the pdf of the graph, ex. stack of all of the outputs
 final.stack <- stack(snow.multitemp, prediction)
 plot(final.stack, col=cl)
 # export the graph in PDF
@@ -638,13 +640,13 @@ dev.off()
 ######13. R_code_monitoring_air_pollution_no2.r
 
 # R_code_monitoring_air_pollution_no2.r
-library(raster)
+library(raster) # recalling the package
 
 setwd("C:/lab/no2/")
 # create RasterStack
-rlist <- list.files(pattern="EN")
-import <- lapply(rlist, raster)
-EN <- stack(import)
+rlist <- list.files(pattern="EN") #list the the files (from the folder) that have in common part of the title
+import <- lapply(rlist, raster) # import all the files as raster
+EN <- stack(import) # stack them together in one raster object
 cl <- colorRampPalette(c('red','orange','yellow'))(100) #
 plot(EN, col=cl)
 
@@ -660,9 +662,9 @@ plot(dif, col=cld)
 
 # Quantitative decrease of no2 
 boxplot(EN) # five-number summary is the minimum, first quartile, median, third quartile, and maximum. The first quartile is the median of the data points to the left of the median.
-boxplot(EN,outline=F)
-boxplot(EN,outline=F, horizontal=T)
-boxplot(EN,outline=F, horizontal=T, axes=T) 
+boxplot(EN,outline=F) # not draw the outliner values
+boxplot(EN,outline=F, horizontal=T) # horizonal boxplot
+boxplot(EN,outline=F, horizontal=T, axes=T) #displaying the axis
 
 plot(EN$EN_0001, EN$EN_0013)
 abline(0,1,col="red") # to see if the values are under the line, this means a decrease in NO2 concentration!! 45 degree line dividing x and y plan in equal parts 
@@ -686,8 +688,8 @@ library(raster)
 
 snow <- raster("c_gls_SCE_202005260000_NHEMI_VIIRS_V1.0.1.nc")
 ext <- c(0, 20, 35, 50) # set the extention desired
-zoom(snow, ext=ext)
-snowitaly <- crop(snow, ext)
+zoom(snow, ext=ext) # ext means extent
+snowitaly <- crop(snow, ext) # write directly the object name for the extent
 zoom(snow, ext=drawExtent()) # draw directly the extent from the graph
 
 ######15. R_code_interpolation.r
@@ -696,32 +698,31 @@ zoom(snow, ext=drawExtent()) # draw directly the extent from the graph
 # interpolation field data
 
 setwd("C:/lab/")
-library(spatstat)
+library(spatstat) #analysing Spatial Point Patterns
 inp <- read.table("dati_plot55_LAST3.csv", sep=";", head=T) # separator is ; and header of title is true
-head(inp)
-attach(inp) #attach the dataset
+head(inp) # have a look to the first rows of the dataset
+attach(inp) #attach the dataset, making use of the variables
 
 #estimate canopy cover
 
 plot(X,Y) # Y west coordinates
 summary(inp) #let's see the minumum and maximum of X and Y, in order to give an extent to spatstat
 #convert the data to a point pattern object
-inppp <- ppp(x=X, y=Y, c(716000,718000),c(4859000,4861000)) # range of min and max of X and Y, assign the coordinates to spatstat
-# giving information about the variable: lables
+inppp <- ppp(x=X, y=Y, c(716000,718000),c(4859000,4861000)) # range of min and max of X and Y, asign the coordinates to spatstat
+# giving information about the variable:
 #names(inp) #names of the variables
 marks(inppp) <- Canopy.cov # add variable to inpp object
 canopy <- Smooth(inppp)# visualize the data were they are not been measured. Smooth canopy.cov as interpolation of the surface estimatating where the dat have not been recorded
-##list validation distance of value from the line that record the values: means measured the amount of error
-plot(canopy)#density
+plot(canopy)# plot density of canopy
 points(inppp, col="green")
 
 #lichens for detecting the quality of air
 marks(inppp) <- cop.lich.mean
 lichs <- Smooth(inppp)
 plot(lichs)
-points(inppp) # no congruence with canopy cover and lichens
+points(inppp)
 
-par(mfrow=c(1,2))
+par(mfrow=c(1,2)) # is there any correlation between canopy and lichens density?... no congruence with canopy cover and lichens
 plot(canopy)
 points(inppp)
 plot(lichs)
@@ -752,28 +753,28 @@ points(inp.psam.ppp) # solution: mean value for each clumped zone or select the 
 # Model species distribution
 # Probability of distribution of the species
 
-install.packages("sdm")
+install.packages("sdm") # function to installing the package
 #dataset in library(sdm)
 
-library(sdm)
+library(sdm) # recall package
 library(raster) # for environmental variables
 library(rgdal) #input vector layers(for species)
 file <- system.file("external/species.shp", package="sdm") # system.file is the function to import the file stored in sdm package
 species <- shapefile(file) # to read the .shp file
 plot(species)
 plot(species[species$Occurrence == 1,],col='blue',pch=16) # condition with [] , == equal to , comma for ending the condition
-points(species[species$Occurrence == 0,],col='red',pch=16) # points to add the occurrence to the plot
+points(species[species$Occurrence == 0,],col='red',pch=16) # add the occurrence to the plot as point symbol
 
 # use of ecological variables
 path <- system.file("external", package="sdm")
 lst <- list.files(path=path,pattern='asc$',full.names = T) # to list the predictors' files
-preds <- stack(lst)
+preds <- stack(lst) # import the file in one raster with multiple layers, the predictors
 cl <- colorRampPalette(c('blue','orange','red','yellow')) (100)
 plot(preds, col=cl)
 
 # look at the correlation with predictors and species
 plot(preds$elevation, col=cl)
-points(species[species$Occurrence == 1,], pch=16) #low elevation
+points(species[species$Occurrence == 1,], pch=16) # species preference: low elevation
 plot(preds$temperature, col=cl)
 points(species[species$Occurrence == 1,], pch=16) #high temperature
 plot(preds$precipitation, col=cl)
