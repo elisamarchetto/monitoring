@@ -24,7 +24,7 @@
 ######1. R_code_first.r
 # test for the first time functions and codes in R software
 
-install.packages("sp") # Classes and methods for spatial data
+install.packages("sp") # function to install a package. sp is a Classes and methods for spatial data
 library(sp)# function to recall the package installed
 
 data(meuse) #recalling the dataset
@@ -133,14 +133,13 @@ ggplot(covid,aes(x=lon,y=lat, size=cases)) + geom_point() #lat and lon dipend on
 
 #Point pattern analysis: density map
 
-#install library packages for density analysis
-install.packages("spatstat") # toolbox for analysing Spatial Point Patterns
+install.packages("spatstat") # function to install a package. spatstat is a toolbox for analysing Spatial Point Patterns
 library(spatstat) #recalling the package
 attach(covid) #make use of variables
 head(covid) # seeing the first rows
 
 covids <- ppp(lon, lat, c(-180, 180), c(-90, 90)) #ppp means panel point pattern. The general form is ppp(x.coordinates, y.coordinates, x.range, y.range) it creates a point pattern dataset in the two-dimensional plane for the range of values of lat and long. 
-#to build the density map
+#to create a density map
 d<- density(covids) 
 plot(d) 
 #to see the point of covids object on the map
