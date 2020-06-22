@@ -824,13 +824,13 @@ setwd("C:/lab/exam/")
 #octB08 <- raster("B08.tif")
 #octB11 <- raster("B11.tif")
 
-## or create them directly in SNAP 
+## or elaborate them directly in SNAP 
 
 ## next ##
 # Creating a RasterStack
 
 # first of all, resampling B11:
-b11 <- raster("subset_0_of_T30SWG_20191016T110041_B11.tif") # move in C:/lab/
+b11 <- raster("subset_0_of_T30SWG_20191016T110041_B11.tif") # move in C:/lab/ to not be in conflict with the new file
 b11_dis <- disaggregate(b11, fact=2) # B SWIR2 from resolution 20m to 10m as the other bands
 writeRaster(b11_dis, "sub_11.tif") # into C:/lab/exam/
 
@@ -851,6 +851,7 @@ ndwi2_bit <- stretch(ndwi2, minv=0, maxv=255)
 cl <-  colorRampPalette(c("black", "green", "red"))(100)
 clb <-  colorRampPalette(c("black", "gold", "blue"))(100)
 
+# displaying on one map the indicies
 par(mfrow=c(2,1))
 plot(ndvi_bit, col=cl, main="NDVI")
 plot(ndwi2_bit, col=clb, main="NDWI2")
@@ -865,12 +866,12 @@ albedo <- stack(b1, b2, b3, b4)
 plot(albedo)
 
 # reducing the dimentions for having a rappresentation of all of the bands together
-pairs(albedo)#correlation among bands
+pairs(albedo)# have a fast look at the correlation among bands
 albedoPCA2019 <- rasterPCA(albedo)
 summary(albedoPCA$model)# PC1 describes 94%
 plot(albedoPCA$map)
 
-# displaying on a map NDVI and Albedo
+# checking and displaying on a map NDVI and Albedo
 par(mfrow=c(1,2))
 plot(albedoPCA2019$map$PC1)
 plot(ndvi_bit)
@@ -928,8 +929,9 @@ clc <- colorRampPalette(c('red','green','yellow')) (100)
 plot(dif_ndvi, col= clc)
 hist(dif_ndvi)
 
+# rise or decrease in biomass
 plot(ndvi_2010ext, ndvi_2019ext, xlab="NDVI 2010", ylab="NDVI 2019", main="Trend of NDVI")
-abline(0,1,col="red")
+abline(0,1,col="red") # 45° line that divides the cartesian plane in 2 equal parts
 
 NDVI <- stack(ndvi_2010ext, ndvi_2015ext, ndvi_2019ext)
 boxplot(NDVI,outline=F, horizontal=T, axes=T, names=c("NDVI 2010", "NDVI 2015", "NDVI 2019"), main="Boxplot NDVI") 
@@ -968,6 +970,7 @@ albedo_2010 <- stack(alb_2010b1ex, alb_2010b2ex, alb_2010b3ex, alb_2010b4ex)
 albedo_2010PCA <- rasterPCA(albedo_2010)
 summary(albedoPCA2010$model)
 
+# in my opinion faster passage
 writeRaster(albedoPCA2019$map$PC1, "albedoPCA2019.tif")
 writeRaster(albedo_2010PCA$map$PC1, "albedoPCA2010.tif")
 writeRaster(albedo_2015PCA$map$PC1, "albedoPCA2015.tif")
