@@ -1038,7 +1038,7 @@ V3_r <- mt_to_raster(df = V3)
 multit_NDVI <- stack(VI_r, V2_r, V3_r)
 # multitemporal NDVI needs to have the same coordinates system and extent of previous NDVI data to compare the boxplot results
 multit_NDVIex <- projectRaster(multit_NDVI,alb_2015b1ex)
-boxplot(multit_NDVIex,outline=F, horizontal=T, axes=T, na
+boxplot(multit_NDVIex,outline=F, horizontal=T, axes=T, names=c("NDVI 2010", "NDVI 2015", "NDVI 2019"), main="Boxplot multitemporal NDVI")
 
 
 
